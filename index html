@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع الخبير للتكييف والتبريد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #001f3f;
+            --mustard: #E1AD01;
+            --cherry: #D2042D;
+            --deer-blood: #800000;
+            --apple-green: #8DB600;
+            --apple-green-light: #eaffea;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--navy);
+            color: var(--white);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--mustard);
+            text-align: center;
+            margin: 20px auto;
+            font-weight: 800;
+            width: 95%;
+            line-height: 1.4;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
+            padding-bottom: 100px; 
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .option-btn {
+            background-color: var(--navy);
+            border: 2px solid var(--mustard);
+            color: var(--white);
+            padding: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .option-btn:hover {
+            background-color: var(--white);
+            color: var(--navy);
+        }
+
+        .back-btn {
+            background-color: var(--mustard) !important;
+            color: var(--white) !important;
+            border: none;
+            padding: 10px 25px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            width: auto;
+            max-width: 100%;
+        }
+
+        .page { 
+            display: none; 
+            width: 100%; 
+            flex-direction: column; 
+            align-items: center; 
+            overflow-x: hidden; 
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            height: 45px;
+            font-size: 1rem;
+            margin: 8px 0;
+            text-align: center;
+            border-radius: 8px;
+            border: none;
+            max-width: 600px;
+            box-sizing: border-box;
+        }
+
+        /* تنسيق الجداول */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        table { 
+            width: 100%; 
+            max-width: 800px;
+            border-collapse: collapse; 
+            font-size: 0.9rem; 
+            min-width: 300px;
+        }
+
+        /* كلاس خاص للجداول المضغوطة (الريموت والانفيرتر والأحمال) */
+        .compact-table {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            overflow-x: auto; /* لضمان التمرير في الشاشات الصغيرة جداً */
+        }
+
+        .compact-table table {
+            width: auto; /* العرض حسب المحتوى */
+            min-width: auto; /* إلغاء الحد الأدنى */
+            max-width: 100%; 
+            font-size: 0.9rem;
+        }
+        
+        .compact-table th, .compact-table td {
+            padding: 8px 15px; /* حواشي مريحة */
+            white-space: nowrap; /* منع تفاف النص */
+        }
+
+        th, td { 
+            border: 1px solid var(--white); 
+            padding: 8px; 
+            text-align: center; 
+            word-wrap: break-word;
+        }
+        
+        th { background: rgba(255,255,255,0.1); color: var(--mustard); }
+
+        .search-btn { 
+            background-color: var(--mustard) !important; 
+            color: var(--navy) !important; 
+            font-weight: bold; 
+            cursor: pointer; 
+            height: 40px; 
+            width: 120px; 
+            border-radius: 5px; 
+            border: none; 
+            margin-top: 10px;
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        
+        .result-box {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: none;
+        }
+        .res-error-name { color: var(--white); background-color: var(--cherry); border-right: 5px solid var(--mustard); }
+        .res-fix-sol { color: var(--apple-green); background-color: rgba(255, 255, 255, 0.9); border-right: 5px solid var(--apple-green); }
+
+        .issue-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-right: 4px solid var(--mustard);
+            margin-bottom: 12px;
+            padding: 15px;
+            width: 100%;
+            box-sizing: border-box; 
+            border-radius: 4px;
+        }
+        .issue-q { color: var(--mustard); font-weight: bold; display: block; font-size: 1.1rem; margin-bottom: 5px; }
+
+        .text-content { 
+            text-align: right; 
+            width: 100%; 
+            line-height: 1.8; 
+            max-width: 800px; 
+            box-sizing: border-box;
+        }
+        
+        .text-content p {
+            margin-bottom: 15px;
+            word-wrap: break-word;
+        }
+
+        .warning-box-cherry {
+            color: var(--white);
+            background-color: var(--cherry);
+            padding: 15px;
+            margin: 20px auto;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            line-height: 1.5;
+            box-sizing: border-box;
+        }
+        
+        .expert-info-green {
+            background-color: #d0f0c0;
+            color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%; 
+            max-width: 600px;
+            margin: 25px auto;
+            text-align: center;
+            border: 2px solid var(--apple-green);
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+
+        .expert-tip-box {
+            background-color: var(--navy);
+            color: var(--white);
+            border: 1px solid var(--mustard);
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+
+        .google-link {
+            display: block;
+            margin-top: 15px;
+            color: var(--mustard);
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: bold;
+            word-break: break-all;
+            text-align: center;
+            width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        footer { 
+            text-align: center; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; 
+            color: #fff; position: fixed; bottom: 0; left: 0; right: 0; width: 100%; background-color: var(--navy); 
+            z-index: 1000; line-height: 1.4;
+        }
+        
+        .detail-section {
+            background: rgba(255,255,255,0.03);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-right: 3px solid var(--mustard);
+        }
+        
+        .chem-formula {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            color: var(--mustard); /* تم التغيير لتمييز الصيغة */
+            font-weight: bold;
+        }
+        
+        /* عناوين فرعية مميزة */
+        .sub-title-gold {
+            color: var(--mustard);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* التعديل 1: صغر حجم العبارة في صفحة الحمل الحراري */
+        #loadNote {
+            font-size: 0.95rem !important;
+            line-height: 1.6 !important;
+            margin-top: 15px;
+            text-align: center;
+            color: var(--mustard);
+            font-weight: bold;
+        }
+
+        /* التعديل 2: تنسيق جدول اختيار المتسعة - UPDATED */
+        .capacitor-table {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .capacitor-table table {
+            width: auto;
+            min-width: auto;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .capacitor-table th, .capacitor-table td {
+            padding: 12px 20px;
+            white-space: nowrap;
+            text-align: center;
+            border: 1px solid var(--white);
+        }
+
+        /* التعديل 3: تنسيق جدول أزرار الريموت */
+        .remote-table {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .remote-table table {
+            width: auto;
+            min-width: auto;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        .remote-table th, .remote-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid var(--white);
+            vertical-align: middle;
+        }
+
+        .remote-table td {
+            max-width: 300px;
+            word-wrap: break-word;
+            white-space: normal;
+            line-height: 1.4;
+        }
+
+        /* التعديل 4: توجيهات الخبير في صفحة الأخطاء الشائعة - UPDATED */
+        .expert-maintenance-tips {
+            background-color: var(--navy);
+            border: 2px solid var(--mustard);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+
+        /* التعديل 5: تنسيق جدول مقارنة سحب الأمبير - MODIFIED AS REQUESTED */
+        .amperage-table {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .amperage-table table {
+            width: auto;
+            min-width: 300px;
+            border-collapse: collapse;
+            margin: 0 auto;
+            table-layout: auto;
+        }
+
+        .amperage-table th, .amperage-table td {
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid var(--white);
+            white-space: nowrap;
+        }
+
+        .amperage-table th {
+            background: rgba(255,255,255,0.1);
+            color: var(--mustard);
+            font-weight: bold;
+        }
+
+        .amperage-table td {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* التعديل 6: تنسيق جدول ضغوط الفريونات - MODIFIED AS REQUESTED */
+        .refrigerant-table {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .refrigerant-table table {
+            width: auto;
+            min-width: 350px;
+            border-collapse: collapse;
+            margin: 0 auto;
+            table-layout: auto;
+        }
+
+        .refrigerant-table th, .refrigerant-table td {
+            padding: 8px 10px;
+            text-align: center;
+            border: 1px solid var(--white);
+            white-space: nowrap;
+        }
+
+        .refrigerant-table th {
+            background: rgba(255,255,255,0.1);
+            color: var(--mustard);
+            font-weight: bold;
+        }
+
+        .refrigerant-table td {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .refrigerant-table .small-text {
+            font-size: 0.75rem;
+            color: #ccc;
+            display: block;
+            margin-top: 3px;
+        }
+
+        /* التعديل 7: تنسيق صفحة أكواد الأعطال */
+        .error-search-section {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .unit-type-select {
+            margin-top: 10px;
+        }
+
+        /* التعديل الجديد: تنظيم الصفحات للجداول المطلوبة */
+        .page-content-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .table-full-width {
+            width: 100%;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .table-full-width table {
+            width: 100%;
+            max-width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        .table-full-width th, .table-full-width td {
+            padding: 8px 10px;
+            text-align: center;
+            border: 1px solid var(--white);
+        }
+
+        .table-full-width th {
+            background: rgba(255,255,255,0.1);
+            color: var(--mustard);
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .table-full-width td {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* التعديل 8: مركز الجداول في الصفحة */
+        .center-table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: 25px 0;
+        }
+
+        .center-table-container table {
+            width: auto;
+            min-width: 300px;
+            max-width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        .center-table-container th, .center-table-container td {
+            padding: 10px 12px;
+            text-align: center;
+            border: 1px solid var(--white);
+            white-space: nowrap;
+        }
+
+        .center-table-container th {
+            background: rgba(255,255,255,0.1);
+            color: var(--mustard);
+            font-weight: bold;
+        }
+
+        /* التعديل النهائي: الجداول المعدلة حسب الطلب */
+        .enhanced-table {
+            width: 100%;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .enhanced-table table {
+            width: auto;
+            min-width: 300px;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        .enhanced-table th, .enhanced-table td {
+            padding: 10px 15px;
+            text-align: center;
+            border: 2px solid var(--white);
+            white-space: nowrap;
+        }
+
+        .enhanced-table th {
+            background: rgba(255,255,255,0.15);
+            color: var(--mustard);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .enhanced-table td {
+            background: rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+
+        /* التعديل النهائي المحدد للجداول المطلوبة */
+        .final-amperage-table {
+            width: 100%;
+            margin: 35px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .final-amperage-table table {
+            width: auto;
+            min-width: 350px;
+            border-collapse: collapse;
+            margin: 0 auto;
+            border: 2px solid var(--mustard);
+        }
+
+        .final-amperage-table th, .final-amperage-table td {
+            padding: 12px 18px;
+            text-align: center;
+            border: 1px solid var(--white);
+            white-space: nowrap;
+        }
+
+        .final-amperage-table th {
+            background: rgba(225, 173, 1, 0.2);
+            color: var(--mustard);
+            font-weight: bold;
+            font-size: 1.05rem;
+        }
+
+        .final-amperage-table td {
+            background: rgba(255,255,255,0.07);
+            font-size: 1rem;
+        }
+
+        .final-refrigerant-table {
+            width: 100%;
+            margin: 35px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .final-refrigerant-table table {
+            width: auto;
+            min-width: 400px;
+            border-collapse: collapse;
+            margin: 0 auto;
+            border: 2px solid var(--mustard);
+        }
+
+        .final-refrigerant-table th, .final-refrigerant-table td {
+            padding: 10px 14px;
+            text-align: center;
+            border: 1px solid var(--white);
+            white-space: nowrap;
+        }
+
+        .final-refrigerant-table th {
+            background: rgba(225, 173, 1, 0.2);
+            color: var(--mustard);
+            font-weight: bold;
+            font-size: 1.05rem;
+        }
+
+        .final-refrigerant-table td {
+            background: rgba(255,255,255,0.07);
+            font-size: 0.95rem;
+        }
+
+        .final-refrigerant-table .note {
+            font-size: 0.8rem;
+            color: #ccc;
+            display: block;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <header><h1>موقع الخبير<br>للتكييف والتبريد</h1></header>
+
+    <div class="container" id="mainView">
+        <div class="menu-grid">
+            <button class="option-btn" onclick="showPage('p1')">حساب الحمل الحراري للغرفة</button>
+            <button class="option-btn" onclick="showPage('p2')">صيانة الدورية للسبلت و المتسعات</button>
+            <button class="option-btn" onclick="showPage('p3')">شرح دورة التبريد الانضغاطية</button>
+            <button class="option-btn" onclick="showPage('p4')">شرح أزرار ريمونت السبلت</button>
+            <button class="option-btn" onclick="showPage('p5')">الأخطاء الشائعة في السبلت</button>
+            <button class="option-btn" onclick="showPage('p6')">أكواد أعطال السبلت Error</button>
+            <button class="option-btn" onclick="showPage('p7')">الفرق بين السبلت العادي والانفيرتر</button>
+            <button class="option-btn" onclick="showPage('p8')">كيفية تنصيب السبلت والفريونات</button>
+        </div>
+    </div>
+
+    <div class="container page" id="p1">
+        <button class="back-btn" onclick="showMain()">🏠 العودة للقائمة الرئيسية</button>
+        <h2>حساب الحمل الحراري للغرفة</h2>
+        <select id="floor">
+            <option value="300">الطابق الأرضي</option>
+            <option value="250">الطابق الثاني</option>
+        </select>
+        <input type="number" id="L" placeholder="طول الغرفة (متر)">
+        <input type="number" id="W" placeholder="عرض الغرفة (متر)">
+        <input type="number" id="H" placeholder="ارتفاع الغرفة (متر)">
+        <button class="option-btn" style="background:var(--mustard); color:var(--navy); max-width:600px; width:100%; border:none;" onclick="calcLoad()">احسب السعة المطلوبة</button>
+        
+        <div id="resLoad"></div>
+        
+        <div id="loadNote" style="display:none; color:var(--mustard); margin-top:20px; text-align:center; font-weight:bold; line-height:1.6; font-size: 0.95rem;">
+            هذه السعة المطلوبة لغرفتك<br>
+            تم حسابها بمعادلات هندسية<br>
+            (نتمنى لكم جواً ممتعاً و راحة دائمة)
+        </div>
+        
+        <div class="compact-table">
+            <table>
+                <thead>
+                
+                <th style="padding: 15px 10px; border: 1px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: 800; text-align: center; white-space: nowrap; font-size: 1rem;">السعة (طن)</th>
+                <th style="padding: 15px 10px; border: 1px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: 800; text-align: center; white-space: nowrap; font-size: 1rem;"> القدرة ( BTU )</th>
+                </thead>
+                <tbody>
+                    <tr><td>1 طن</td><td>12,000</td></tr>
+                    <tr><td>1.5 طن</td><td>18,000</td></tr>
+                    <tr><td>2 طن</td><td>24,000</td></tr>
+                    <tr><td>2.5 طن</td><td>30,000</td></tr>
+                    <tr><td>3 طن</td><td>36,000</td></tr>
+                    <tr><td>4 طن</td><td>48,000</td></tr>
+                    <tr><td>5 طن</td><td>60,000</td></tr>
+                    <tr><td>6 طن</td><td>72,000</td></tr>
+                    <tr><td>7.5 طن</td><td>90,000</td></tr>
+                    <tr><td>8 طن</td><td>96,000</td></tr>
+                    <tr><td>9 طن</td><td>108,000</td></tr>
+                    <tr><td>10 طن</td><td>120,000</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="container page" id="p2">
+        <button class="back-btn" onclick="showMain()">🏠 العودة للقائمة الرئيسية</button>
+        <h2>دليل الصيانة الدورية الشامل</h2>
+        <div class="text-content">
+            <p><b style="color:var(--mustard)">1. تنظيف مرشحات الهواء (Filters):</b> <br>يجب فك الفلاتر من الوحدة الداخلية وغسلها بماء جارٍ لإزالة الأتربة التي تمنع تدفق الهواء وتؤدي لتجمد المبخر.</p>
+            <p><b style="color:var(--mustard)">2. غسل الوحدات:</b> <br>تنظيف راديتر القطعة الخارجية بمضخة ماء لإزالة العوالق التي تمنع التبادل الحراري، وغسل القطعة الداخلية باستخدام أغطية التنظيف لضمان نظافة حوض الماء.</p>
+            <p><b style="color:var(--mustard)">3. فحص الغاز:</b> <br>مراقبة ضغوط المنظومة وسحب الأمبير للتأكد من عدم وجود نقص ناتج عن تسريب (ليك).</p>
+        </div>
+        <div class="warning-box-cherry">
+            تحذير ⚠️ : عند عطل الكارت السبلت او الضاغط استدعي الفني المختص ولا تجازف بمشاهدة الفيديوهات التعليمية على منصة اليوتيوب لتَعلم اصلاحها بنفسك ( سلامتك اولا )
+        </div>
+
+        <div class="text-content" style="margin-top: 30px;">
+            <h3 style="color:var(--mustard); text-align:center; border-bottom: 2px solid var(--mustard); padding-bottom:10px;">علم المتسعات (Capacitors) 🔋</h3>
+            
+            <p><b>ما هي المتسعة؟</b><br>
+            هي قطعة كهربائية تقوم بتخزين الشحنة الكهربائية وتفريغها لحظياً لإعطاء عزم دوران (Torque) لبدء تشغيل الضاغط واستمراره بالعمل. وتقاس سعتها بالميكروفاراد (µF).</p>
+
+            <div class="detail-section">
+                <h4 style="color:var(--apple-green);">الفرق بين المتسعة الجافة والسائلة (الزيتية):</h4>
+                <p><b>1. المتسعة الجافة (Dry Capacitor):</b><br>
+                غالبًا ما تكون بغلاف بلاستيكي وصغيرة الحجم. تستخدم مواد عازلة جافة. عمرها الافتراضي أقصر وتتأثر بسرعة بالحرارة العالية، مما يجعلها أقل كفاءة في الأجواء الحارة جداً.</p>
+
+                <p><b>2. المتسعة السائلة/الزيتية (Oil-Filled Capacitor - CBB65):</b><br>
+                تأتي بغلاف معدني (ألمنيوم) ومملوءة بزيت خاص يساعد على تشتيت الحرارة (Heat Dissipation) الناتجة عن التشغيل. هذا النوع يتحمل درجات حرارة عالية وضغوط عمل شاقة، وهو الأنسب لأجهزة التكييف في المناطق الحارة.</p>
+            </div>
+
+            <h4 style="text-align:center; margin-top:30px; margin-bottom:15px;">جدول اختيار المتسعة</h4>
+<div style="display: flex; justify-content: center; width: 100%;">
+    <table style="border-collapse: collapse; font-size: 82rem; margin: 0 auto; width: auto; min-width: 25px;">
+        <thead>
+            <tr>
+                <th style="padding: 6px 8px; border: 1px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: 700; text-align: center; white-space: nowrap; font-size: 1rem;">السعة (طن)</th>
+                <th style="padding: 6px 8px; border: 1px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: 700; text-align: center; white-space: nowrap; font-size: 1rem;">قيمة المتسعة (µF)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">1 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">30 - 35 µF</td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">1.5 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">40 - 45 µF</td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">2 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">50 - 55 µF</td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">2.5 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">60 µF</td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">3 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">60 - 70 µF<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">(غالباً ما تكون 3 Phase)</span></td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">4 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">µF 70 - 75<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( في حال سنجل Phase ) </span></td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">5 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">80 - 90 µF<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( في حال سنجل Phase )</span></td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">6 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">بدون متسعة<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( تكون 3 Phase )</span></td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">7.5 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">بدون متسعة<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( تكون 3 Phase )</span></td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">8 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">بدون متسعة<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( تكون 3 Phase )</span></td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">9 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">بدون متسعة<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( تكون 3 Phase )</span></td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">10 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">بدون متسعة<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( تكون 3 Phase )</span></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="expert-info-green" style="background:var(--navy); color:var(--white); border:1px solid var(--mustard); margin-top:20px;">
+    <h4 style="color:var(--mustard); margin-top:0;">💡 ملاحظة هندسية من الخبير - الأنظمة ثلاثية الطور (3 Phase)</h4>
+    
+    <p><b>السبب الهندسي للاستغناء عن المتسعة في الأنظمة ثلاثية الطور:</b></p>
+    
+    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:5px; margin:10px 0;">
+        <p><b>⚡ المبدأ العلمي:</b></p>
+        <p>في الأنظمة <b>ثلاثية الطور (380V - Three Phase)</b>، يتم توليد مجال مغناطيسي دوار (Rotating Magnetic Field) تلقائياً بسبب الانزياح الزاوي (120°) بين الفازات الثلاثة. هذا المجال الدوار ينتج عزم دوران (Torque) كافٍ لبدء تشغيل الضاغط دون الحاجة إلى طور مساعد.</p>
+    </div>
+    
+    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:5px; margin:10px 0;">
+        <p><b>🔧 المقارنة التقنية:</b></p>
+        <ul style="padding-right:20px;">
+            <li><b>نظام أحادي الطور (220V - Single Phase):</b> يحتاج متسعة لإنشاء طور مساعد (Phase Shift) لتوليد عزم بدء التشغيل</li>
+            <li><b>نظام ثلاثي الطور (380V - Three Phase):</b> يولد عزم التشغيل تلقائياً من الانزياح بين الفازات الثلاث</li>
+        </ul>
+    </div>
+    
+    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:5px; margin:10px 0;">
+        <p><b>🏭 التطبيق العملي:</b></p>
+        <p>الأجهزة من <b>4 طن فما فوق</b> غالباً ما تكون مصممة للعمل على <b>380 فولت/3 فاز</b> للأسباب التالية:</p>
+        <ol style="padding-right:20px;">
+            <li><b>توزيع الحمل:</b> توزيع الحمل الكهربائي على 3 خطوط بدلاً من خطين</li>
+            <li><b>تقليل سلك التيار:</b> سحب أمبير أقل في كل طور مقارنة بالنظام الأحادي</li>
+            <li><b>كفاءة أعلى:</b> تشغيل أكثر استقراراً وكفاءة للضواغط الكبيرة</li>
+            <li><b>توفير في التكلفة:</b> الاستغناء عن المتسعات والريليات المساعدة</li>
+        </ol>
+    </div>
+    
+    <div style="background:rgba(141,182,0,0.1); border:1px solid var(--apple-green); padding:10px; border-radius:5px; margin-top:15px;">
+        <p><b>📊 قاعدة تقريبية:</b></p>
+        <ul style="padding-right:20px;">
+            <li>✅ <b>3 طن فأقل:</b> غالباً 220V/1 فاز (تستخدم متسعة)</li>
+            <li>⚠️ <b>3 - 4 طن:</b> يمكن أن تكون 220V/1 فاز أو 380V/3 فاز</li>
+            <li>✅ <b>4 طن فما فوق:</b> غالباً 380V/3 فاز (لا تحتاج متسعة)</li>
+        </ul>
+    </div>
+    
+    <p style="margin-top:15px; font-size:0.9rem; color:#ccc;">
+        <b>ملاحظة:</b> هذه المعلومات هي للاسترشاد العام. يجب دائماً مراجعة كتالوج المصنع واللوحة الإرشادية على الجهاز للتحقق من مواصفات الجهد والطور.
+    </p>
+</div>
+
+            <div class="expert-info-green" style="background:var(--navy); color:var(--white); border:1px solid var(--mustard);">
+                <h4 style="color:var(--mustard); margin-top:0;">نصيحة الخبير 💡</h4>
+                <p>أفضل نوع متسعة للسبلت هي <b>المتسعة الزيتية (CBB65)</b> ذات الغلاف المعدني.</p>
+                <p><b>أفضل الماركات العالمية الموصى بها:</b><br>
+                1. ماركة <b>Panasonic</b> (تايلندي/ياباني).<br>
+                2. ماركة <b>Ducati</b> (إيطالي).<br>
+                3. ماركة <b>Epcos</b>.<br>
+                احرص دائماً على مطابقة رقم الميكروفاراد (µF) المكتوب على الضاغط أو الكتالوج.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container page" id="p3">
+        <button class="back-btn" onclick="showMain()">🏠 العودة للقائمة الرئيسية</button>
+        <h2>شرح دورة التبريد الانضغاطية</h2>
+        <div class="text-content">
+            <h3 style="color:var(--mustard);">مقدمة:</h3>
+            <p>دورة التبريد الانضغاطية هي القلب النابض لأي نظام تكييف. تعتمد فكرتها الفيزيائية على أن "السائل عندما يتبخر يمتص الحرارة، وعندما يتكثف يطرد الحرارة". يتم تدوير وسيط التبريد (الفريون) في حلقة مغلقة ليمر بأربع مراحل رئيسية.</p>
+            
+            <hr style="border-color:rgba(255,255,255,0.2);">
+
+            <div class="detail-section">
+                <h3 style="color:var(--apple-green);">1. الضاغط (Compressor)</h3>
+                <p>هو "قلب" المنظومة، وظيفته سحب غاز الفريون بضغط منخفض ودرجة حرارة منخفضة من المبخر، وضغطه ليصبح غازاً بضغط عالٍ ودرجة حرارة عالية لدفعه للمكثف.</p>
+                <div class="sub-title-gold">أنواع الضواغط (Types of Compressors):</div>
+                <ul>
+                    <li>الضاغط الترددي (Reciprocating Compressor) - "البستن".</li>
+                    <li>الضاغط الدوراني (Rotary Compressor) - "الروتري".</li>
+                    <li>الضاغط الحلزوني (Scroll Compressor).</li>
+                    <li>الضاغط اللولبي (Screw Compressor) - للمشاريع الكبيرة.</li>
+                    <li>الضاغط الطارد المركزي (Centrifugal Compressor) - للتشلرات الضخمة.</li>
+                </ul>
+            </div>
+
+            <div class="detail-section">
+                <h3 style="color:var(--apple-green);">2. المكثف (Condenser)</h3>
+                <p>يقع في الوحدة الخارجية. وظيفته استقبال الغاز الساخن جداً القادم من الضاغط، وتبريده (عن طريق الهواء أو الماء) ليتحول من "غاز" إلى "سائل" مع بقاء ضغطه مرتفعاً.</p>
+                <div class="sub-title-gold">أنواع المكثفات (Types of Condensers):</div>
+                <ul>
+                    <li>مكثف مبرد بالهواء (Air-Cooled Condenser) - شائع في السبالت.</li>
+                    <li>مكثف مبرد بالماء (Water-Cooled Condenser).</li>
+                    <li>مكثف تبخيري (Evaporative Condenser).</li>
+                </ul>
+            </div>
+
+            <div class="detail-section">
+                <h3 style="color:var(--apple-green);">3. صمام التمدد (Expansion Valve)</h3>
+                <p>هو نقطة الفصل بين الضغط العالي والمنخفض. وظيفته خنق سائل الفريون القادم من المكثف لخفض ضغطه بشكل مفاجئ، مما يؤدي لانخفاض درجة حرارته بشدة قبل دخوله للمبخر.</p>
+                <div class="sub-title-gold">أنواع صمامات التمدد (10 أنواع):</div>
+                <ol>
+                    <li>الأنبوب الشعري (Capillary Tube) - في السبالت الصغيرة والثلاجات.</li>
+                    <li>صمام التمدد الحراري (Thermal Expansion Valve - TXV).</li>
+                    <li>صمام التمدد الإلكتروني (Electronic Expansion Valve - EXV/EEV).</li>
+                    <li>صمام التمدد الأوتوماتيكي (Automatic Expansion Valve - AXV).</li>
+                    <li>صمام العوامة جانب الضغط المنخفض (Low-Side Float Valve).</li>
+                    <li>صمام العوامة جانب الضغط العالي (High-Side Float Valve).</li>
+                    <li>صمام التمدد اليدوي (Hand Expansion Valve).</li>
+                    <li>الفتحة الثابتة (Orifice Tube).</li>
+                    <li>صمام التمدد الكهروحراري (Thermal-Electric Valve).</li>
+                    <li>الصمام المعدل (Modulating Valve).</li>
+                </ol>
+            </div>
+
+            <div class="detail-section">
+                <h3 style="color:var(--apple-green);">4. المبخر (Evaporator)</h3>
+                <p>يقع في الوحدة الداخلية. يدخل إليه الفريون كسائل بارد جداً وضغطه منخفض، فيمتص حرارة الغرفة ويغلي (يتبخر) ليتحول إلى غاز، ثم يعود للضاغط.</p>
+                <div class="sub-title-gold">أنواع المبخرات (Types of Evaporators):</div>
+                <ul>
+                    <li>المبخر ذو الزعانف (Finned Tube Evaporator) - في السبالت.</li>
+                    <li>المبخر اللوحي (Plate Evaporator).</li>
+                    <li>مبخر الأنبوب والقشرة (Shell and Tube Evaporator) - لتبريد السوائل.</li>
+                </ul>
+            </div>
+
+            <div class="detail-section" style="border-right-color: var(--cherry);">
+                <h3 style="color:var(--mustard);">شرح مخطط الضغط والإنثالبي (P-h Diagram) 📊</h3>
+                <p>هذا المخطط هو لغة المهندسين، حيث المحور العمودي يمثل الضغط (P) والمحور الأفقي يمثل الإنثالبي (h - المحتوى الحراري). شكل المنحنى يشبه "الجرس".</p>
+                
+                <p><b>كيف تُرسم الدورة عليه؟</b></p>
+                <ul>
+                    <li><b>خط الانضغاط:</b> خط مائل للأعلى (زيادة ضغط وإنثالبي). درجة حرارة الغاز ترتفع من حوالي 10°C إلى 85-90°C.</li>
+                    <li><b>خط التكثيف:</b> خط أفقي مستقيم (ثبوت الضغط). يتحول الغاز لسائل وتخرج الحرارة، تنخفض درجة الحرارة إلى حوالي 45-50°C.</li>
+                    <li><b>خط التمدد:</b> خط عمودي للأسفل (ثبوت الإنثالبي). ينخفض الضغط فجأة، وتنخفض درجة حرارة الفريون إلى حوالي 4°C.</li>
+                    <li><b>خط التبخير:</b> خط أفقي مستقيم (ثبوت الضغط المنخفض). يمتص الفريون الحرارة ويتحول لغاز عند درجة 4-5°C (داخل الأنابيب) بينما هواء الغرفة يبرد.</li>
+                </ul>
+                <p style="font-size:0.9rem; color:#ccc;">ملاحظة: درجات الحرارة المذكورة تقريبية وتعتمد على نوع الفريون وظروف التشغيل.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container page" id="p4">
+        <button class="back-btn" onclick="showMain()">🏠 العودة للقائمة الرئيسية</button>
+        <h2>شرح أزرار ريمونت السبلت</h2>
+        
+        <div class="remote-table">
+            <table>
+                <thead>
+                <th style="padding: 15px 10px; border: 1px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: 800; text-align: center; white-space: nowrap; font-size: 1rem;"> الزر </th>
+                <th style="padding: 15px 10px; border: 1px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: 800; text-align: center; white-space: nowrap; font-size: 1rem;"> الوظيفة </th>
+                </thead>
+                <tbody>
+                    <tr><td>ON / OFF 🔴</td><td>تشغيل وإيقاف الجهاز</td></tr>
+                    <tr><td>FAN 💨</td><td>التحكم بسرعة المروحة</td></tr>
+                    <tr><td>MODE ⚙️</td><td>اختيار النظام: تبريد، تدفئة<br>تجفيف، مروحة</td></tr>
+                    <tr><td>TIMER ⏱️</td><td>ضبط مؤقت للتشغيل<br>أو الإطفاء التلقائي</td></tr>
+                    <tr><td>SLEEP 🌙</td><td>وضع النوم المريح<br>وتوفير الطاقة</td></tr>
+                    <tr><td>LIGHT 💡</td><td>إطفاء وتشغيل<br>إضاءة الشاشة</td></tr>
+                    <tr><td>X-FAN 🎐</td><td>تجفيف المبخر بعد الإطفاء<br>لمنع العفن</td></tr>
+                    <tr><td>TEMP 🌡️</td><td>عرض درجة حرارة<br>الغرفة الحالية</td></tr>
+                    <tr><td>I FEEL 🙍‍♂️</td><td>نقل الحساس للريموت<br>لقياس مكانك</td></tr>
+                    <tr><td>TURBO 🚀</td><td>التبريد الأقصى السريع<br>لمدة قصيرة</td></tr>
+                    <tr><td>CLEAN ✨</td><td>تشغيل التنظيف الذاتي<br>أو البلازما</td></tr>
+                    <tr><td>SWING ↔️</td><td>تحريك الزعانف<br>يميناً ويساراً</td></tr>
+                    <tr><td>SWING ↕️</td><td>تحريك الزعانف<br>للأعلى وللأسفل</td></tr>
+                    <tr><td>TEMP ▲ 🔼</td><td>رفع الحرارة المطلوبة</td></tr>
+                    <tr><td>TEMP ▼ 🔽</td><td>خفض الحرارة المطلوبة</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="expert-info-green">
+            <h3 style="color:var(--apple-green); margin-top:0;">💡 معلومات اضافية من الخبير 💡</h3>
+            
+            <p style="text-align: right;">1. خاصية قفل ريمونت السبلت (Child Lock):<br>
+            اضغط على زر ( + و - ) معاً في نفس الوقت لعدة ثوانٍ.</p>
+            
+            <p style="text-align: right;">2. خاصية التنظيف التلقائي الذاتي (Self Clean):<br>
+            (اضغط Mode + Fan) والجهاز مطفأ، لتنظيف المبخر من الأوساخ.</p>
+            
+            <p style="text-align: right;">3. تحويل الدرجة من سيليزي إلى فهرنهايت:<br>
+            اضغط زر (Mode) مع سهم ( - ) والريمونت مطفأ.</p>
+
+            <div class="expert-tip-box">
+                نصيحة الخبير 💡: اضبط درجة الحرارة في الصيف 20 سيليزي و في الشتاء 28 سيليزي للحفاظ على اداء الضاغط و زيادة في العمر الافتراضي للسبلت.
+            </div>
+        </div>
+    </div>
+
+    <div class="container page" id="p5">
+        <button class="back-btn" onclick="showMain()">🏠 العودة للقائمة الرئيسية</button>
+        <h2>30 خطأ شائع وحلول هندسية</h2>
+        <div style="width: 100%; box-sizing: border-box;" id="thirtyIssuesList"></div>
+        
+        <!-- التعديل 4: إضافة توجيهات الخبير المحدثة -->
+        <div class="expert-maintenance-tips">
+            <h3 style="color:var(--mustard); text-align:center; margin-top:0;">💡 توجيهات هندسية احترافية للحفاظ على السبلت 💡</h3>
+            
+            <div style="margin-bottom: 15px;">
+                <h4 style="color:var(--apple-green);">1. إضافة جهاز حماية كهربائي متخصص للسبلت:</h4>
+                <p>ننصح بشدة بإضافة <b>جهاز حماية وتثبيت فولتية (Stabilizer/Voltage Protector)</b> خاص بالسبلت فقط. هذا الجهاز يحمي ضاغط السبلت من:</p>
+                <ul style="padding-right: 20px;">
+                    <li>تقلبات الجهد الكهربائي المفاجئة (من 150V إلى 270V)</li>
+                    <li>انخفاض الفولتية (Brownouts) التي تؤدي لاحتراق ملفات الضاغط</li>
+                    <li>ارتفاع الفولتية (Surges) الذي يدمر مكونات الكارت الإلكتروني</li>
+                    <li>القفزات الكهربائية (Spikes) الناتجة عن المولدات الأهلية</li>
+                </ul>
+                <p><b>التوصية الهندسية:</b> اختر جهاز حماية بمدى عملي واسع (من 150V إلى 270V) وبسعة أمبير مناسبة (20% أعلى من سحب السبلت) مع خاصية التأخير الزمني (Time Delay) لمنع إعادة التشغيل الفوري.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <h4 style="color:var(--apple-green);">2. شد وتثبيت الأسلاك الكهربائية بإحكام:</h4>
+                <p>عند تركيب الأسلاك الكهربائية، يجب:</p>
+                <ul style="padding-right: 20px;">
+                    <li>استخدام <b>ترامل (Terminal Connectors)</b> عالية الجودة عند ربط الأسلاك</li>
+                    <li>شد براغي التوصيلات الكهربائية بقوة مناسبة (1.5-2 Nm) باستخدام مفك معاير</li>
+                    <li>تجنب وجود أي رخاوة (Loose Connections) في التوصيلات</li>
+                    <li>عزل نقاط التوصيل بشريط عازل عالي الجودة (Electrical Tape)</li>
+                </ul>
+                <p><b>الخطورة الهندسية:</b> التوصيلات الرخوة تسبب شرارة كهربائية (Arcing) تؤدي لارتفاع مقاومة التلامس وزيادة الحرارة واحتراق النقاط.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <h4 style="color:var(--apple-green);">3. الصيانة الوقائية الدورية وفق جدول زمني:</h4>
+                <ul style="padding-right: 20px;">
+                    <li><b>تنظيف الفلاتر:</b> كل 15 يوم في الصيف (بسبب الغبار) وكل شهر في الشتاء</li>
+                    <li><b>غسل المكثف الخارجي:</b> مرتين في السنة على الأقل (قبل الصيف وبعد العواصف الترابية)</li>
+                    <li><b>فحص الضغوط وسحب الأمبير:</b> سنوياً بواسطة فني مختص باستخدام أجهزة معايرة</li>
+                    <li><b>تنظيف حوض التصريف:</b> كل 3 أشهر لمنع تراكم البكتيريا والعفن والفطريات</li>
+                </ul>
+                <p><b>المعيار الهندسي:</b> انخفاض ضغط الهواء بسبب الفلاتر المتسخة يقلل كفاءة التبريد بنسبة 15-20%.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <h4 style="color:var(--apple-green);">4. التثبيت الميكانيكي السليم للوحدات:</h4>
+                <ul style="padding-right: 20px;">
+                    <li>تثبيت الحمالة الخارجية بمسامير توسيط (Expansion Bolts) مقاس 10mm على الأقل</li>
+                    <li>استخدام ميزان مائي دقيق (Spirit Level) لضمان استوائية الوحدة الداخلية ±0.5°</li>
+                    <li>تركيب مانعات الاهتزاز (Anti-Vibration Pads) تحت الوحدة الخارجية</li>
+                    <li>تأمين مسافة تهوية لا تقل عن 30cm حول الوحدة الخارجية</li>
+                </ul>
+                <p><b>الأثر الهندسي:</b> التثبيت غير المستوي يسبب تجمع الماء في غير مكانه وتسريبه للجدار.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <h4 style="color:var(--apple-green);">5. التحكم الذكي في درجات الحرارة والتشغيل:</h4>
+                <ul style="padding-right: 20px;">
+                    <li>ضبط درجة الحرارة في الصيف على 22-24°م (ليس أقل) للحفاظ على الضاغط</li>
+                    <li>ضبط درجة الحرارة في الشتاء على 20-22°م (ليس أعلى) لتوفير الطاقة</li>
+                    <li>استخدام وضع Sleep ليلاً لتقليل سرعة الضاغط تدريجياً</li>
+                    <li>تشغيل خاصية X-FAN بعد إطفاء السبلت بـ10 دقائق لتنشيف المبخر تماماً</li>
+                </ul>
+                <p><b>الحساب الهندسي:</b> خفض درجة الحرارة 1°م يزيد استهلاك الطاقة بنسبة 3-5%.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <h4 style="color:var(--apple-green);">6. سلامة نظام التصريف (Drainage System):</h4>
+                <ul style="padding-right: 20px;">
+                    <li>تأكد من ميل أنبوب التصريف 2-3% على الأقل تجاه فتحة التصريف</li>
+                    <li>تجنب وجود أي انحناءات حادة (90°) في مسار أنبوب التصريف</li>
+                    <li>استخدام أنابيب تصريف معزولة في الأماكن الباردة لمنع التكثف</li>
+                    <li>إضافة مصيدة ماء (U-Trap) إذا كان مسار الأنبوب أفقي أكثر من 1 متر</li>
+                </ul>
+                <p><b>المشكلة الشائعة:</b> انسداد التصريف بسبب الطحالب يسبب تسرب الماء للداخل.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <h4 style="color:var(--apple-green);">7. العناية بأنابيب النحاس والعزل الحراري:</h4>
+                <ul style="padding-right: 20px;">
+                    <li>عزل أنبوب السحب (الغليظ) وأنبوب الدفع (الرفيع) كلٌ على حدة قبل لفهما معاً</li>
+                    <li>استخدام عازل حراري (Insulation) بسمك 10mm على الأقل من نوع Armaflex</li>
+                    <li>تأكد من عدم وجود أي ثنيات حادة (Kinks) في أنابيب النحاس</li>
+                    <li>فحص نقاط اللحام (Brazing Points) سنوياً للتأكد من عدم وجود تسريبات</li>
+                </ul>
+                <p><b>الأساس العلمي:</b> العزل غير الكافي يسبب تكثف الماء على الأنابيب وفقدان طاقة.</p>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <h4 style="color:var(--apple-green);">8. المراقبة الدورية لسحب الأمبير وضغوط الفريون:</h4>
+                <ul style="padding-right: 20px;">
+                    <li>قياس سحب الأمبير تحت الحمل الكامل (Full Load) وتسجيل القراءات</li>
+                    <li>مراقبة ضغط الشفط (Suction Pressure) وضغط الطرد (Discharge Pressure)</li>
+                    <li>حساب درجة الحرارة الفائقة (Superheat) ودرجة الحرارة تحت التبريد (Subcooling)</li>
+                    <li>مقارنة القراءات مع بيانات الكتالوج (Manufacturer's Data)</li>
+                </ul>
+                <p><b>التشخيص الهندسي:</b> ارتفاع سحب الأمبير عن المعدل يدل على انسداد أو ضعف في الضاغط.</p>
+            </div>
+            
+            <div class="expert-tip-box" style="margin-top: 20px;">
+                <b>💡 الخلاصة الهندسية:</b> العمر الافتراضي لسبلت الإنفيرتر يتراوح بين 10-15 سنة، وللسبلت العادي 8-12 سنة. الالتزام بهذه التوجيهات الهندسية يطيل العمر الافتراضي بنسبة 40% ويخفض تكاليف الصيانة بنسبة 60%.
+            </div>
+        </div>
+    </div>
+
+    <div class="container page" id="p6">
+        <button class="back-btn" onclick="showMain()">🏠 العودة للقائمة الرئيسية</button>
+        <h2>مركز فحص أعطال السبلت Error</h2>
+        
+        <div class="error-search-section">
+            <select id="brandSelect">
+                <option value="">حدد الشركة المصنعة (Brand)</option>
+                <option value="gree">جري (GREE)</option>
+                <option value="tosot">توسوت (TOSOT)</option>
+                <option value="tcl">تي سي إل (TCL)</option>
+                <option value="midea">ميديا (Midea)</option>
+                <option value="carrier">كارير (Carrier)</option>
+                <option value="lg">إل جي (LG Inverter)</option>
+                <option value="samsung">سامسونج (Samsung Inverter)</option>
+                <option value="denka">دنكا (Denka)</option>
+                <option value="hisense">هايسنس (Hisense)</option>
+                <option value="okaia">أوكيا (Okaia)</option>
+                <option value="hero">هيرو (Hero)</option>
+                <option value="kenwood">كين وود (Kenwood)</option>
+                <option value="alahram">الأهرام (Al-Ahram)</option>
+                <option value="toshiba">توشيبا (Toshiba)</option>
+                <option value="ge">جنرال إلكتريك (GE - General Electric)</option>
+                <option value="panasonic">باناسونيك (Panasonic)</option>
+            </select>
+            
+            <select id="unitType" class="unit-type-select">
+                <option value="">حدد نوع السبلت</option>
+                <option value="wall">Wall Split (سبلت جداري)</option>
+                <option value="inverter">Inverter Split (سبلت انفيرتر)</option>
+                <option value="cassette">Flooring split (سبلت كنتوري)</option>
+            </select>
+            
+            <input type="text" id="errorCode" placeholder="أدخل كود العطل هنا">
+            <button class="search-btn" onclick="searchError()">بحث 🔍</button>
+            <div id="resNameBox" class="result-box res-error-name"></div>
+            <div id="resSolBox" class="result-box res-fix-sol"></div>
+            <a id="catalogLink" class="google-link" style="display:none;" target="_blank">مراجعة كتالوج الشركة (اضغط هنا)</a>
+        </div>
+    </div>
+
+    <div class="container page" id="p7">
+        <button class="back-btn" onclick="showMain()">🏠 العودة للقائمة الرئيسية</button>
+        <h2>مقارنة شاملة: العادي vs الانفيرتر</h2>
+        
+        <div class="text-content">
+            <div class="detail-section" style="border-right-color: var(--white);">
+                <h3 style="color:var(--mustard); text-align:center;">مقدمة تقنية وهندسية</h3>
+                <p>إن الفرق الجوهري بين أجهزة التكييف العادية والانفيرتر لا يقتصر فقط على الضاغط، بل يمتد إلى منظومة التحكم الإلكترونية (PCB) وكيفية إدارة الطاقة الكهربائية لتحويل التيار المتردد (AC) والتحكم في التردد (Hertz).</p>
+            </div>
+
+            <h3 style="color:var(--cherry); border-bottom: 2px solid var(--cherry); display:inline-block; margin-top:20px;">أولاً: السبلت العادي (Fixed Speed)</h3>
+            <p>يعمل بنظام السرعة الثابتة. عند التشغيل، يدور الضاغط بأقصى سرعة (100%) حتى تبرد الغرفة، ثم يفصل نهائياً (OFF). </p>
+            <div style="background:rgba(255,0,0,0.1); padding:10px; border-radius:5px;">
+                <b style="color:var(--cherry);">أداء المحولة في الكارت (Transformer):</b><br>
+                يعتمد الكارت في السبلت العادي على <b>محولة خفض خطية (Linear Transformer)</b> تقليدية وثقيلة الوزن (Iron Core). وظيفتها خفض الفولت من 220V إلى 12V أو 24V لتشغيل الريليات والمعالج. هذه المحولة، رغم بساطتها، تفقد طاقة على شكل حرارة ولا تستطيع التعامل مع تذبذب الكهرباء الشديد، وهي مسؤولة فقط عن تغذية الكارت ولا علاقة لها بالضاغط الذي يعمل مباشرة على 220V.
+            </div>
+
+            <h3 style="color:var(--apple-green); border-bottom: 2px solid var(--apple-green); display:inline-block; margin-top:30px;">ثانياً: السبلت الانفيرتر (Inverter Technology)</h3>
+            <p>يحتوي على ضاغط متغير السرعة لا ينطفئ، بل يخفض دورانه للحفاظ على البرودة، مما يوفر استهلاكاً هائلاً للطاقة.</p>
+            <div style="background:rgba(0,255,0,0.1); padding:10px; border-radius:5px;">
+                <b style="color:var(--apple-green);">أداء المحولة والباور في الكارت (SMPS & Reactor):</b><br>
+                هنا يكمن السحر الهندسي. لا يستخدم محولة حديدية تقليدية، بل يستخدم نظام <b>(Switching Mode Power Supply - SMPS)</b> مع ملفات خانقة (Reactors). <br>
+                تقوم هذه المنظومة بتحويل التيار المتردد (AC) إلى تيار مستمر (DC) عالي الفولتية، ثم يقوم "الموديول الذكي" (IPM) بتقطيع هذا التيار المستمر وإرساله للضاغط بترددات متغيرة. المحولات هنا (Ferrite Core) صغيرة جداً، عالية الكفاءة (High Frequency)، وتعمل بذكاء لتنظيم الجهد بدقة متناهية، مما يحمي الجهاز من ضعف الكهرباء.
+            </div>
+
+            <div class="sub-title-gold" style="text-align:center;">جدول مقارنة سحب الأمبير (Running Amps)</div>
+
+<div class="table-container" style="display: flex; justify-content: center; width: 100%; margin: 20px 0;">
+    <table style="border-collapse: collapse; font-size: 0.95rem; margin: 0 auto; width: auto; min-width: 200px; max-width: 300px;">
+        <thead>
+            <tr>
+                <th style="padding: 6px 8px; border: 1px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: bold; text-align: center; width: 33%;">السعة (طن)</th>
+                <th style="padding: 6px 8px; border: 1px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: bold; text-align: center; width: 33%;">العادي (Amp)</th>
+                <th style="padding: 6px 8px; border: 1px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: bold; text-align: center; width: 34%;">الانفيرتر (Amp)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">1 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">4.5 - 5.5 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">1.5 - 4.5 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">1.5 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">6.5 - 8 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">2 - 6 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">2 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">9 - 11 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">3 - 8.5 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">2.5 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">12 - 14 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">4 - 10 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">3 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">15 - 17 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">5 - 12 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">4 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">19 - 22 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">6 - 15 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">5 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">24 - 28 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">8 - 18 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">6 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">29 - 33 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">10 - 22 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">7.5 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">36 - 40 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">12 - 28 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">8 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">38 - 42 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">14 - 30 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">9 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">42 - 46 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">15 - 33 A</td></tr>
+            <tr><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">10 طن</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">45 - 50 A</td><td style="padding: 6px 8px; border: 1px solid var(--white); text-align: center; background: rgba(255,255,255,0.03);">15 - 35 A</td></tr>
+        </tbody>
+    </table>
+</div>
+            
+            <div class="expert-info-green" style="background:var(--navy); border:2px dashed var(--mustard); margin-top:40px;">
+                <h4 style="color:var(--mustard);">نصيحة الخبير للمواطنين 💡</h4>
+                <p style="text-align:justify; color:var(--white);">
+                    إذا كانت كهرباء منزلك مستقرة (وطنية مستمرة) وتبحث عن الهدوء وتوفير الفاتورة على المدى الطويل، فالخيار الأفضل هو <b>السبلت الانفيرتر</b>. أما إذا كنت تعتمد بشكل كلي على المولدات الأهلية ذات الفولتية غير المستقرة أو كانت ميزانيتك محدودة للصيانة، فالسبلت <b>العادي</b> هو الخيار الأمتن والأسهل صيانة في ظروفنا الحالية.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container page" id="p8">
+        <button class="back-btn" onclick="showMain()">🏠 العودة للقائمة الرئيسية</button>
+        <h2>دليل التنصيب وعلم الفريونات</h2>
+        
+        <div class="text-content">
+            <h3 style="color:var(--mustard); text-align:center;">10 نصائح ذهبية لتنصيب السبلت (خطوات علمية)</h3>
+            <div class="detail-section">
+                <p><b>1. اختيار الموقع المثالي:</b> تجنب تثبيت القطعة الداخلية فوق الأجهزة الكهربائية، وتأكد من أن الجدار يتحمل الوزن لعدم حدوث اهتزازات.</p>
+                <p><b>2. وزن المسطرة (Leveling):</b> استخدم ميزان الماء (Qubban) بدقة لضمان استوائية القطعة الداخلية 100% لمنع تنقيط الماء لاحقاً.</p>
+                <p><b>3. فتحة الجدار المائلة:</b> عند التثقيب، اجعل الفتحة مائلة قليلاً نحو الخارج (بزاوية 5 درجات) لتسهيل انسياب ماء التصريف.</p>
+                <p><b>4. التعامل مع الأنابيب:</b> تجنب ثني الأنابيب (Kinking) واستخدام "توال" (Spring Bender) عند الحني للحفاظ على قطر الأنبوب الداخلي.</p>
+                <p><b>5. عمل الفلير (Flaring):</b> قص الأنبوب بشكل مستقيم، نظف الرايش (Burr)، واستخدم جهاز فلير نوع Eccentric لعمل شفة لامعة خالية من التشققات.</p>
+                <p><b>6. العزل الحراري:</b> تأكد من عزل أنبوب الدفع (الرفيع) وأنبوب السحب (الغليظ) كلٌ على حدة، ثم لفهم بالتيب العازل لتجنب التبادل الحراري غير المرغوب.</p>
+                <p><b>7. ربط الأسلاك (Wiring):</b> استخدم "ترامل" (Terminals) عند ربط الأسلاك في الروزيته، وشد البراغي بإحكام لتجنب الشرارة (Arching).</p>
+                <p><b>8. المصيدة الزيتية (Oil Trap):</b> إذا كانت القطعة الخارجية أعلى من الداخلية بمسافة تزيد عن 3 أمتار، يجب عمل مصيدة زيت (U-Trap) لضمان رجوع الزيت للضاغط.</p>
+                <p><b>9. طول الأنابيب:</b> الالتزام بالحد الأدنى لطول الأنابيب (3 أمتار) لتقليل الضوضاء والاهتزازات المنتقلة من الخارجية للداخلية.</p>
+                <p><b>10. فحص التسريب (Leak Test):</b> قبل فتح الغاز، اضغط المنظومة بالنيتروجين أو استخدم رغوة الصابون الكثيفة على مناطق الربط للتأكد من السلامة.</p>
+            </div>
+
+            <h3 style="color:var(--cherry); border-bottom: 2px solid var(--cherry); display:inline-block; margin-top:25px;">جهاز الفاكيوم (Vacuum Pump): الأهمية الهندسية 🌪️</h3>
+            <p>
+                الفاكيوم هو عملية سحب الهواء والرطوبة من داخل أنابيب النحاس والوحدة الداخلية قبل فتح غاز الفريون. هذه الخطوة <b>ليست اختيارية</b> بل هي ركن أساسي في هندسة التبريد.
+            </p>
+            <p style="background:rgba(255,255,255,0.05); padding:10px; border-radius:5px;">
+                <b>ماذا يحدث لو تركنا الفاكيوم؟ (الكارثة الهندسية):</b><br>
+                1. <b>تكون الأحماض:</b> الرطوبة (H₂O) تتفاعل مع زيت الضاغط والفريون لتشكل أحماض قوية (Hydrolysis) تؤدي لتآكل ملفات الضاغط واحتراقه.<br>
+                2. <b>غازات غير قابلة للتكثف:</b> الهواء الجوي لا يتكثف داخل المكثف، مما يرفع ضغط التشغيل ويزيد استهلاك الأمبير ويقلل التبريد.<br>
+                3. <b>انسداد شعري (Ice Block):</b> قد تتجمد قطرات الماء عند مخرج الكبلري وتسبب انسداداً يوقف الدورة تماماً.
+            </p>
+
+            <h3 style="color:var(--mustard); text-align:center; margin-top:40px;">الموسوعة العلمية الشاملة للفريونات (Refrigerants) 🧪</h3>
+            
+            <div class="detail-section">
+                <p>
+                    <b style="color:var(--white);">1. غاز R22:</b> <span class="chem-formula" style="color:var(--mustard);">CHClF₂ (Chlorodifluoromethane)</span><br>
+                    غاز قديم من عائلة HCFC. يتميز بضغط تشغيل منخفض واستقرار كيميائي، لكنه يحتوي على الكلور الذي يدمر طبقة الأوزون. يتواجد في المكيفات القديمة، ويتم حظره عالمياً وتدريجياً.
+                </p>
+                <p>
+                    <b style="color:var(--apple-green);">2. غاز R410a:</b> <span class="chem-formula" style="color:var(--mustard);">Mix (50% R32 + 50% R125)</span><br>
+                    خليط (Zeotropic) صديق للأوزون. يتميز بضغط تشغيل عالٍ جداً (1.6 مرة من R22) وكفاءة حرارية ممتازة. يتواجد في معظم السبالت الحديثة والانفيرتر. يجب شحنه وهو سائل حصراً للحفاظ على نسب الخليط.
+                </p>
+                <p>
+                    <b style="color:var(--white);">3. غاز R134a:</b> <span class="chem-formula" style="color:var(--mustard);">CF₃CH₂F (Tetrafluoroethane)</span><br>
+                    من عائلة HFC. آمن، غير سام، وغير قابل للاشتعال. هو البديل القياسي لغاز R12. يتواجد في مكيفات السيارات، الثلاجات المنزلية، والمبردات التجارية المتوسطة.
+                </p>
+                <p>
+                    <b style="color:var(--cherry);">4. غاز R600a:</b> <span class="chem-formula" style="color:var(--mustard);">C₄H₁₀ (Iso-Butane)</span><br>
+                    غاز هيدروكربوني طبيعي. كفاءته في التبريد عالية جداً ويعمل بضغوط منخفضة جداً (فاكيوم أحياناً). عيبه الوحيد أنه <b>سريع الاشتعال</b>. يستخدم بكثرة في الثلاجات والمجمدات الحديثة الموفرة للطاقة.
+                </p>
+                <p>
+                    <b style="color:var(--white);">5. غاز R141b:</b> <span class="chem-formula" style="color:var(--mustard);">C₂H₃Cl₂F (Dichlorofluoroethane)</span><br>
+                    ليس غاز تبريد للدورة، بل هو <b>مذيب ومنظف قوي</b>. يستخدم في عمليات تنظيف المواسير (Flushing) لإزالة الزيوت والأوساخ والرطوبة من داخل الدائرة قبل تغيير الضاغط.
+                </p>
+                <p>
+                    <b style="color:var(--white);">6. غاز R404A:</b> <span class="chem-formula" style="color:var(--mustard);">Mix (R125 + R143a + R134a)</span><br>
+                    خليط بديل لـ R502. يستخدم في <b>تطبيقات التجميد العميق</b> (المجمدات الصناعية، غرف التجميد، برادات الشاحنات). ضغطه مقارب لـ R22 لكنه يتطلب زيوت POE خاصة.
+                </p>
+                <p>
+                    <b style="color:var(--apple-green);">7. غاز R1234yf:</b> <span class="chem-formula" style="color:var(--mustard);">C₃H₂F₄ (Tetrafluoropropene)</span><br>
+                    من الجيل الرابع (HFO). تم تطويره ليحل محل R134a في <b>السيارات الحديثة</b>. يتميز بمعامل احترار عالمي (GWP) منخفض جداً (أقل من 1)، مما يجعله صديقاً مثالياً للبيئة.
+                </p>
+                <p>
+                    <b style="color:var(--white);">8. غاز R1234ze:</b> <span class="chem-formula" style="color:var(--mustard);">C₃H₂F₄ (Isomer)</span><br>
+                    شبيه بـ R1234yf ويستخدم في التشلرات الكبيرة والمضخات الحرارية الصناعية كبديل مستقبلي بضغط منخفض وكفاءة عالية.
+                </p>
+            </div>
+
+            <h3 style="text-align:center; margin-top:30px; margin-bottom:15px; color:var(--mustard); font-size:1.1rem;">جدول ضغوط وحالة شحن الفريونات (المرجع الفني)</h3>
+<div style="width: 100vw; margin-left: -20px; margin-right: -20px; padding: 0; background: rgba(0,0,0,0.4); border-top: 2px solid var(--mustard); border-bottom: 2px solid var(--mustard);">
+    <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 2px 5px;">
+        <table style="width: auto; min-width: 600px; margin: 0 auto; border-collapse: separate; border-spacing: 0; font-size: 0.85rem; line-height: 1.2;">
+            <thead>
+                <tr>
+                    <th style="padding: 8px 6px; text-align: center; border: 2px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: bold; font-size: 0.9rem; white-space: nowrap; width: 85px; height: 45px; vertical-align: middle;">نوع<br>الفريون</th>
+                    <th style="padding: 8px 6px; text-align: center; border: 2px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: bold; font-size: 0.9rem; white-space: nowrap; width: 135px; height: 45px; vertical-align: middle;">الضغط المنخفض (PSI)<br><span style="font-size:0.7rem;">(عند 25°C)</span></th>
+                    <th style="padding: 8px 6px; text-align: center; border: 2px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: bold; font-size: 0.9rem; white-space: nowrap; width: 120px; height: 45px; vertical-align: middle;">حالة الشحن<br><span style="font-size:0.7rem;">(اسطوانة الغاز)</span></th>
+                    <th style="padding: 8px 6px; text-align: center; border: 2px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: bold; font-size: 0.9rem; white-space: nowrap; width: 105px; height: 45px; vertical-align: middle;">الاستخدام<br>الشائع</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); font-weight: bold; height: 35px; vertical-align: middle;">R-22</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">60 - 70 PSI</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">غاز (معتدلة)</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">سبالت قديمة</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); font-weight: bold; height: 35px; vertical-align: middle;">R-410A</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">120 - 130 PSI</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">سائل (مقلوبة) ⚠️</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">سبالت حديثة</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); font-weight: bold; height: 35px; vertical-align: middle;">R-134a</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">30 - 45 PSI<br><span style="font-size:0.7rem;">(سيارات/ثلاجات)</span></td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">غاز / سائل</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">سيارات/ثلاجات</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); font-weight: bold; height: 35px; vertical-align: middle;">R-600a</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">0 - 2 PSI<br><span style="font-size:0.7rem;">(قريب للصفر)</span></td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">غاز</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">ثلاجات حديثة</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); font-weight: bold; height: 35px; vertical-align: middle;">R-404A</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">45 - 55 PSI<br><span style="font-size:0.7rem;">(تجميد متوسط)</span></td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">سائل (مقلوبة) ⚠️</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">غرف تجميد</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); font-weight: bold; height: 35px; vertical-align: middle;">R-1234yf</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">30 - 35 PSI</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">سائل (مقلوبة)</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">سيارات 2018+</td>
+                </tr>
+                <tr>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); font-weight: bold; height: 35px; vertical-align: middle;">R-32</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">125 - 135 PSI</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">سائل (مقلوبة)</td>
+                    <td style="padding: 6px 5px; text-align: center; border: 1px solid var(--mustard); background: rgba(255,255,255,0.05); color: var(--white); height: 35px; vertical-align: middle;">انفيرتر حديث</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+            
+            <div style="margin-top:20px; border:1px solid var(--mustard); padding:10px; border-radius:5px; background:rgba(0,0,0,0.3); text-align:center;">
+                <b style="color:var(--mustard);">ملاحظة علمية هندسية هامة:</b><br>
+                تختلف ضغوط الشحن من جهاز لآخر ومن جو لآخر بسبب مفهوم (Superheat & Subcooling). الضغط هو مؤشر فقط وليس معياراً دقيقاً 100%. يعتمد الضغط على درجة الحرارة المحيطة؛ كلما ارتفعت الحرارة، ارتفع الضغط داخل المنظومة والعكس صحيح. لذلك يفضل دائماً الشحن بالميزان الإلكتروني (الوزن) للحصول على الكفاءة المصممة من المصنع.
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div>صُمم هذا الموقع من قِبل المهندس مهدي العبيدي</div>
+        <div>رؤية هندسية مُتقدمة دليلكَ الشامل للتَعلم</div>
+    </footer>
+
+    <script>
+        // بيانات الأعطال للأكواد المحدثة
+        const errorData = {
+            gree: { 
+                "E1": ["حماية الضغط العالي", "تنظيف المكثف وفحص المراوح."], 
+                "E2": ["حماية anti-freeze للوحدة الداخلية", "فحص حساسات الحرارة وتنظيف الفلاتر."],
+                "E3": ["حماية الضغط المنخفض / تسريب الفريون", "البحث عن التسريب وشحن الفريون."],
+                "E4": ["حماية ارتفاع الضغط العالي للضاغط", "تنظيف المكثف وفحص تيار الضاغط."],
+                "E6": ["خطأ في التوصيل (Communication)", "فحص سلك الإشارة بين الوحدتين."], 
+                "E8": ["عطل في محرك المروحة الداخلية", "فحص وتغيير محرك مروحة الوحدة الداخلية."],
+                "E9": ["حماية ارتفاع مستوى الماء (الدرين)", "تنظيف أنبوب التصريف وفحص مضخة الماء."],
+                "F0": ["حساس المحيط للوحدة الداخلية", "استبدال حساس درجة حرارة الغرفة."],
+                "F1": ["حساس درجة حرارة المبخر (الداخلية)", "استبدال حساس المبخر."],
+                "F2": ["حساس درجة حرارة الكوندنسر (الخارجية)", "استبدال حساس المكثف."],
+                "F3": ["حساس درجة حرارة المحيط الخارجي", "استبدال حساس الهواء الخارجي."],
+                "F4": ["ارتفاع درجة حرارة الغاز في خط الضغط العالي", "تنظيف المكثف وفحص تدفق الهواء."],
+                "F5": ["حساس درجة حرارة أسلاك التحكم", "فحص واستبدال حساسات التحكم."],
+                "C5": ["حساس الاستطاعة (capacity)", "فحص دوائر الاستطاعة في الكارت."],
+                "EE": ["كرت الوحدة الخارجية", "فحص واستبدال كرت التحكم الخارجي."],
+                "PF": ["حساس علبة الكهرباء", "فحص حساسات الحرارة داخل علبة الكهرباء."],
+                "H3": ["الأوفر لود للضاغط", "فحص تيار الضاغط وتنظيف المكثف."],
+                "H4": ["حمل زائد", "تقليل الحمل على الجهاز أو زيادة سعته."],
+                "H5": ["حماية IPM", "فحص واستبدال موديول IPM في الكارت."],
+                "H6": ["عطل محرك DC للمروحة", "فحص وتغيير محرك مروحة DC."],
+                "H7": ["حماية التحكم بالمزامنة", "إعادة ضبط إعدادات المزامنة."],
+                "HC": ["حماية مكثفات تحسين عامل الاستطاعة pfc", "فحص دوائر PFC في الكارت."],
+                "L1": ["حماية حساس الرطوبة", "فحص وتغيير حساس الرطوبة."],
+                "LC": ["خطأ في التفعيل (activation)", "إعادة ضبط إعدادات النظام."]
+            },
+            tosot: { 
+                "F1": ["عطل أو قطع في الحساسات (داخلية)", "استبدال حساس الوحدة الداخلية."],
+                "F2": ["عطل أو قطع في الحساسات (مبخر)", "استبدال حساس المبخر."],
+                "F3": ["عطل أو قطع في الحساسات (خارجية)", "استبدال حساس الوحدة الخارجية."],
+                "F4": ["عطل أو قطع في الحساسات (مكثف)", "استبدال حساس المكثف."],
+                "F5": ["عطل أو قطع في الحساسات (خط دفع)", "استبدال حساس خط الدفع."],
+                "F6": ["الحد الأعلى للحمل أو هرتزية منخفضة", "تقليل الحمل على الجهاز."],
+                "F8": ["تيار مرتفع / انخفاض الهرتزية", "فحص تيار الضاغط ودوائر التردد."],
+                "F9": ["حرارة خط الدفع مرتفعة جداً", "تنظيف المكثف وفحص تدفق الفريون."],
+                "F0": ["حماية تسريب الغاز", "البحث عن التسريب وشحن الفريون."],
+                "FC": ["حماية الضغط العالق", "فحص صمامات التمدد وتنظيف الفلاتر."],
+                "FE": ["عطل في حساس الأوفرلود", "استبدال حساس الأوفرلود."],
+                "FH": ["مانع الجليد (إذابة)", "فحص نظام إذابة الجليد وحساساته."],
+                "H0": ["انخفاض الهرتزية بسبب الحرارة بالتدفئة", "فحص نظام التدفئة وحساساته."],
+                "H1": ["إذابة الجليد (تراكم ثلج بالخارجية)", "تنظيف المكثف وفحص نظام Defrost."],
+                "H3": ["حماية الضاغط (حرارة مرتفعة جداً)", "تنظيف المكثف وفحص تيار الضاغط."],
+                "H4": ["نظام غير طبيعي / حماية حرارة", "فحص جميع حساسات الحرارة."],
+                "H5": ["حماية IPM", "فحص واستبدال موديول IPM."],
+                "H6": ["موتور المروحة الداخلية لا يستجيب", "فحص وتغيير محرك المروحة الداخلية."],
+                "HC": ["حماية الكارت", "فحص واستبدال كرت التحكم."],
+                "HE": ["الضاغط تالف (دمج في الملف)", "استبدال الضاغط."],
+                "E1": ["حماية الضغط العالي", "تنظيف المكثف وفحص المراوح."],
+                "E2": ["الحماية ضد التجميد", "فحص حساسات الحرارة وتنظيف الفلاتر."],
+                "E3": ["حماية الضغط الواطي (نقص غاز)", "البحث عن التسريب وشحن الفريون."],
+                "E6": ["فشل التوصيل بين الشاشة والكارت", "فحص أسلاك الاتصال والكارت."]
+            },
+            tcl: { 
+                "E0": ["خلل في الاتصال بين الوحدتين", "فحص كابل الاتصال بين الوحدتين."],
+                "E1": ["عطل حساس حرارة الغرفة", "استبدال حساس درجة حرارة الغرفة."],
+                "E2": ["عطل حساس حرارة المبخر", "استبدال حساس المبخر."],
+                "E3": ["عطل حساس حرارة المكثف", "استبدال حساس المكثف."],
+                "E4": ["خلل عام في النظام (ضاغط أو مراوح)", "فحص الضاغط والمراوح."],
+                "E6": ["عطل محرك مروحة الداخلية", "فحص وتغيير محرك مروحة الداخلية."],
+                "E7": ["عطل حساس حرارة الخارجية", "استبدال حساس الهواء الخارجي."],
+                "E8": ["عطل حساس حرارة العادم", "استبدال حساس درجة حرارة العادم."],
+                "E9": ["خلل في وحدة العاكس (الإنفرتر)", "فحص دوائر الإنفرتر في الكارت."],
+                "EF": ["عطل محرك مروحة الخارجية", "فحص وتغيير محرك مروحة الخارجية."],
+                "EA": ["عطل حساس التيار", "استبدال حساس التيار."],
+                "EE": ["خطأ في الذاكرة (EEPROM)", "إعادة برمجة أو استبدال الذاكرة."],
+                "EP": ["عطل مفتاح حرارة الضاغط", "استبدال مفتاح حماية الضاغط."],
+                "EU": ["عطل حساس الجهد", "استبدال حساس الجهد الكهربائي."],
+                "EH": ["عطل حساس مدخل الهواء", "استبدال حساس مدخل الهواء."]
+            },
+            midea: { 
+                "E0": ["عطل الذاكرة EEPROM", "إعادة برمجة أو استبدال الذاكرة."],
+                "E1": ["خطأ اتصال بين الوحدتين", "فحص كابل الاتصال بين الوحدتين."],
+                "E2": ["عدم وصول التيار الكهربائي", "فحص مصدر الكهرباء والفيوزات."],
+                "E3": ["سرعة موتور الداخلية لا تعمل", "فحص محرك مروحة الداخلية."],
+                "E4": ["حساس الهواء للداخلية (فتح أو قصر)", "فحص واستبدال حساس الهواء الداخلي."],
+                "E5": ["حساس المبادل للداخلية (فتح أو قصر)", "فحص واستبدال حساس المبخر."],
+                "F0": ["حماية من ارتفاع الحرارة", "تنظيف الفلاتر والمكثف."],
+                "F1": ["حساس الهواء للخارجية", "استبدال حساس الهواء الخارجي."],
+                "F2": ["حساس المبادل للخارجية", "استبدال حساس المكثف."],
+                "F3": ["حساس حرارة الضاغط", "استبدال حساس حرارة الضاغط."],
+                "F4": ["عطل ذاكرة الخارجية", "إعادة برمجة أو استبدال ذاكرة الخارجية."],
+                "P0": ["عطل موديول IPM أو IGBT", "فحص واستبدال موديول IPM/IGBT."],
+                "P1": ["حماية جهد (ارتفاع أو انخفاض)", "تثبيت جهاز حماية من تقلبات الجهد."],
+                "P4": ["توقف الضاغط الإنفرتر لعطل ما", "فحص دوائر الإنفرتر والضاغط."],
+                "EC": ["تنفيس فريون أو عطل أوقف الضاغط", "البحث عن التسريب وشحن الفريون."]
+            },
+            carrier: { 
+                "E1": ["سنسور الهواء للوحدة الداخلية", "استبدال حساس الهواء الداخلي."],
+                "E2": ["سنسور المبادل للوحدة الداخلية", "استبدال حساس المبخر."],
+                "E3": ["سنسور المبادل للوحدة الخارجية", "استبدال حساس المكثف."],
+                "E4": ["عطل الصمام عاكس الدورة (توقف الضاغط)", "فحص واستبدال الصمام العاكس."],
+                "EC": ["تسريب فريون أو عطل أوقف الضاغط", "البحث عن التسريب وشحن الفريون."],
+                "P4": ["حرارة مبادل الداخلية غير طبيعية", "تنظيف المبخر وفحص حساساته."],
+                "P5": ["حرارة مبادل الخارجية مرتفعة جداً", "تنظيف المكثف وفحص حساساته."],
+                "P9": ["وظيفة إذابة الثلج تعمل حالياً", "انتظار انتهاء دورة إذابة الثلج."]
+            },
+            lg: { 
+                "1": ["حساس حرارة الغرفة", "استبدال حساس درجة حرارة الغرفة."],
+                "2": ["حساس أنبوب مدخل الداخلية", "استبدال حساس أنبوب المدخل."],
+                "5": ["خطأ اتصال بين الوحدات", "فحص كابل الاتصال بين الوحدتين."],
+                "6": ["حساس أنبوب مخرج الداخلية", "استبدال حساس أنبوب المخرج."],
+                "9": ["عطل ذاكرة EEPROM", "إعادة برمجة أو استبدال الذاكرة."],
+                "10": ["قفل محرك مروحة الداخلية", "فحص وتحرير محرك مروحة الداخلية."],
+                "21": ["خطأ في الـ IPM", "فحص واستبدال موديول IPM."],
+                "23": ["انخفاض جهد الـ DC Link", "فحص دوائر DC Link في الكارت."],
+                "26": ["خطأ وضعية الضاغط", "فحص وضعية وسرعة الضاغط."],
+                "32": ["ارتفاع حرارة أنبوب الدفع", "تنظيف المكثف وفحص تدفق الفريون."],
+                "34": ["خطأ حساس الضغط (عالي)", "استبدال حساس الضغط العالي."],
+                "35": ["خطأ حساس الضغط (منخفض)", "استبدال حساس الضغط المنخفض."],
+                "36": ["اكتشاف تسريب فريون (منخفض)", "البحث عن التسريب وشحن الفريون."],
+                "38": ["اكتشاف تسريب فريون (عالي)", "البحث عن التسريب وشحن الفريون."],
+                "41": ["حساس أنبوب التصريف", "استبدال حساس أنبوب التصريف."],
+                "44": ["حساس هواء الخارجية", "استبدال حساس الهواء الخارجي."]
+            },
+            samsung: { 
+                "E461": ["الضاغط لا يقلع", "فحص دوائر الضاغط والمتسعة."],
+                "E466": ["مشكلة في موديول الكهرباء DC PEB", "فحص واستبدال موديول PEB."],
+                "E221": ["عطل حساس الخارجية", "استبدال حساس الوحدة الخارجية."],
+                "E416": ["ارتفاع حرارة الضاغط", "تنظيف المكثف وفحص تيار الضاغط."],
+                "E468": ["عطل حساس التيار", "استبدال حساس التيار الكهربائي."],
+                "E458": ["عطل مروحة الداخلية", "فحص وتغيير محرك مروحة الداخلية."],
+                "E467": ["خطأ دوران الضاغط", "فحص وضعية وسرعة دوران الضاغط."],
+                "E469": ["مشكلة في الجهد الكهربائي", "فحص مصدر الكهرباء وجهاز الحماية."],
+                "E554": ["اكتشاف تسريب فريون", "البحث عن التسريب وشحن الفريون."],
+                "E112": ["عطل حساس ملف الداخلية", "استبدال حساس ملف الوحدة الداخلية."]
+            },
+            denka: { 
+                "E1": ["عطل في حساس حرارة الغرفة.", "استبدال حساس درجة حرارة الغرفة."],
+                "E2": ["عطل في حساس الأنبوب (المبخر).", "استبدال حساس المبخر."],
+                "E6": ["عطل في محرك المروحة الداخلية.", "فحص وتغيير محرك المروحة الداخلية."],
+                "F5": ["مشكلة في الوحدة الخارجية أو حساساتها.", "فحص حساسات الوحدة الخارجية."],
+                "P4": ["حماية من ارتفاع حرارة الضاغط.", "تنظيف المكثف وفحص تيار الضاغط."]
+            },
+            hisense: { 
+                "EA": ["خطأ في الاتصال بين الوحدتين.", "فحص كابل الاتصال بين الوحدتين."],
+                "E1": ["عطل حساس درجة حرارة الغرفة.", "استبدال حساس درجة حرارة الغرفة."],
+                "E2": ["عطل حساس درجة حرارة الأنبوب.", "استبدال حساس الأنبوب."],
+                "E5": ["خطأ في الذاكرة EEPROM.", "إعادة برمجة أو استبدال الذاكرة."],
+                "E9": ["حماية من زيادة التيار (IPM).", "فحص واستبدال موديول IPM."],
+                "F1": ["مشكلة في حساس الخارجية.", "فحص حساسات الوحدة الخارجية."]
+            },
+            okaia: { 
+                "E1": ["عطل حساس الهواء الداخلي.", "استبدال حساس الهواء الداخلي."],
+                "E2": ["عطل حساس النحاس (المبخر).", "استبدال حساس المبخر."],
+                "E6": ["عطل في المروحة الداخلية.", "فحص وتغيير محرك المروحة الداخلية."],
+                "EC": ["تسريب غاز أو نقص في الشحنة.", "البحث عن التسريب وشحن الفريون."]
+            },
+            hero: { 
+                "E1": ["خلل في حساس حرارة الغرفة.", "استبدال حساس درجة حرارة الغرفة."],
+                "E3": ["نقص غاز الفريون أو انسداد.", "البحث عن التسريب أو الانسداد."],
+                "E4": ["مشكلة في الضاغط أو ارتفاع حرارة.", "فحص الضاغط ودرجة حرارته."],
+                "E6": ["خطأ اتصال (Communication).", "فحص كابل الاتصال بين الوحدتين."]
+            },
+            kenwood: { 
+                "E1": ["عطل حساس الغرفة.", "استبدال حساس درجة حرارة الغرفة."],
+                "E2": ["عطل حساس الأنبوب الداخلي.", "استبدال حساس الأنبوب الداخلي."],
+                "E4": ["عطل في الذاكرة الداخلية.", "إعادة برمجة أو استبدال الذاكرة."],
+                "E5": ["حماية الوحدة الخارجية.", "فحص مكونات الوحدة الخارجية."],
+                "F7": ["عطل في محرك مروحة الوحدة الداخلية.", "فحص وتغيير محرك المروحة الداخلية."]
+            },
+            alahram: { 
+                "E1": ["عطل حساس حرارة الغرفة.", "استبدال حساس درجة حرارة الغرفة."],
+                "E2": ["عطل حساس المبخر.", "استبدال حساس المبخر."],
+                "E6": ["مشكلة في المروحة الداخلية.", "فحص وتغيير محرك المروحة الداخلية."],
+                "EC": ["اكتشاف تسريب فريون.", "البحث عن التسريب وشحن الفريون."]
+            },
+            toshiba: { 
+                "00": ["لا يوجد اتصال مع الوحدة الخارجية.", "فحص كابل الاتصال والكهرباء."],
+                "01": ["عطل حساس حرارة الغرفة.", "استبدال حساس درجة حرارة الغرفة."],
+                "02": ["عطل حساس المبادل الحراري.", "استبدال حساس المبادل الحراري."],
+                "04": ["حماية الضاغط من الحمل الزائد.", "تقليل الحمل على الجهاز."],
+                "0C": ["نقص غاز التبريد.", "البحث عن التسريب وشحن الفريون."],
+                "11": ["مشكلة في مروحة الوحدة الداخلية.", "فحص وتغيير محرك المروحة الداخلية."]
+            },
+            ge: { 
+                "E1": ["عطل حساس الهواء الداخلي.", "استبدال حساس الهواء الداخلي."],
+                "E2": ["عطل حساس الأنبوب.", "استبدال حساس الأنبوب."],
+                "E7": ["خطأ في الاتصال بين الوحدتين.", "فحص كابل الاتصال بين الوحدتين."],
+                "F1": ["عطل في كرت الوحدة الخارجية.", "فحص واستبدال كرت الوحدة الخارجية."],
+                "F3": ["ارتفاع حرارة خط الدفع في الضاغط.", "تنظيف المكثف وفحص تدفق الفريون."],
+                "P1": ["حماية من الجهد الكهربائي غير المستقر.", "تثبيت جهاز حماية من تقلبات الجهد."]
+            },
+            panasonic: { 
+                "H00": ["النظام سليم ولا يوجد عطل.", "لا يحتاج إلى إصلاح."],
+                "H11": ["فقدان الاتصال بين الوحدة الداخلية والخارجية.", "فحص أسلاك الاتصال والكارت."],
+                "H12": ["عدم توافق قدرة الوحدتين الداخلية والخارجية.", "فحص توافق الوحدتين."],
+                "H14": ["عطل في مستشعر درجة حرارة الغرفة.", "استبدال حساس درجة حرارة الغرفة."],
+                "H15": ["عطل في مستشعر درجة حرارة الضاغط.", "استبدال حساس درجة حرارة الضاغط."],
+                "H16": ["انخفاض سحب التيار (نقص غاز أو مشكلة في لوحة الخارج).", "البحث عن التسريب أو فحص اللوحة."],
+                "H19": ["عطل أو انحشار في محرك مروحة الوحدة الداخلية.", "فحص وتحرير محرك المروحة الداخلية."],
+                "H21": ["مشكلة في نظام تصريف المياه أو حساس الطوافة.", "تنظيف أنبوب التصريف وفحص الحساس."],
+                "H23": ["عطل حساس حرارة المبخر الداخلي رقم 1.", "استبدال حساس المبخر 1."],
+                "H24": ["عطل حساس حرارة المبخر الداخلي رقم 2.", "استبدال حساس المبخر 2."],
+                "H25": ["خلل في وحدة تنقية الهواء (e-ion).", "فحص وتفعيل وحدة التنقية."],
+                "H27": ["عطل حساس درجة حرارة الهواء الخارجي.", "استبدال حساس الهواء الخارجي."],
+                "H28": ["عطل حساس درجة حرارة المكثف.", "استبدال حساس المكثف."],
+                "H30": ["عطل حساس أنبوب الطرد.", "استبدال حساس أنبوب الطرد."],
+                "H33": ["خطأ في فولتية الربط بين الوحدات.", "فحص جهد الربط بين الوحدات."],
+                "H38": ["عدم تطابق الموديل بين القطعة الداخلية والخارجية.", "فحص توافق موديلات الوحدات."],
+                "H58": ["عطل مستشعر الغبار.", "استبدال مستشعر الغبار."],
+                "H97": ["عطل محرك مروحة القطعة الخارجية.", "فحص وتغيير محرك مروحة الخارجية."],
+                "H98": ["حماية من ارتفاع الضغط.", "تنظيف المكثف وفحص المراوح."],
+                "H99": ["حماية من تجمد الراديتر الداخلي.", "تنظيف الفلاتر وفحص حساسات الحرارة."],
+                "F11": ["خلل في عمل الصمام العاكس.", "فحص واستبدال الصمام العاكس."],
+                "F17": ["حماية من تجمد الوحدة الداخلية.", "تنظيف الفلاتر وفحص حساسات الحرارة."],
+                "F90": ["عطل في دائرة تقوية الطاقة (PFC) في اللوحة.", "فحص دوائر PFC في الكارت."],
+                "F91": ["خلل في دورة التبريد.", "البحث عن التسريب أو الانسداد."],
+                "F93": ["سرعة الضاغط غير منتظمة أو فشل في الانطلاق.", "فحص دوائر الضاغط والمتسعة."],
+                "F94": ["حماية من ضغط التفريغ الزائد.", "فحص صمامات التمدد وتنظيف الفلاتر."],
+                "F95": ["ارتفاع حرارة القطعة الخارجية.", "تنظيف المكثف وفحص تدفق الهواء."],
+                "F96": ["ارتفاع حرارة موديول القدرة (IPM) في اللوحة الخارجية.", "فحص تبريد وتبديل موديول IPM."],
+                "F97": ["ارتفاع حرارة الضاغط بشكل مفرط.", "تنظيف المكثف وفحص تيار الضاغط."],
+                "F98": ["حماية من سحب التيار العالي جداً.", "فحص دوائر الضاغط وتنظيف المكثف."],
+                "F99": ["عطل في نظام حماية التيار المستمر.", "فحص دوائر DC protection."],
+                "E01": ["فشل في استقبال إشارة التحكم.", "فحص الريموت ومستقبل الإشارة."],
+                "E02": ["تلف في حساس حرارة أنبوب الضاغط.", "استبدال حساس أنبوب الضاغط."],
+                "E06": ["ضغط غاز مرتفع جداً.", "تنظيف المكثف وفحص تدفق الهواء."],
+                "E07": ["عطل أو سرعة غير طبيعية لمروحة القطعة الداخلية.", "فحص وتغيير محرك المروحة الداخلية."],
+                "E13": ["حماية من التيار العالي عند البدء.", "فحص المتسعة ودوائر بدء التشغيل."]
+            }
+        };
+
+        // قائمة الـ 30 عطل وحل
+        const issues = [
+            ["تساقط ماء من الوحدة الداخلية", "انسداد خرطوم التصريف (يحتاج نفخ أو تنظيف)."],
+            ["ضعف دفع الهواء", "انسداد الفلاتر بالأتربة (غسيل الفلاتر)."],
+            ["الضاغط يعمل ولكن التبريد ضعيف", "نقص في شحنة الغاز أو اتساخ القطعة الخارجية."],
+            ["الضاغط يزن ولا يقلع", "تلف المتسعة (الكابستر) وتحتاج استبدال."],
+            ["تكون ثلج على الماسورة الرفيعة (الدفع)", "نقص حاد في الغاز."],
+            ["تكون ثلج على الماسورة العريضة (الراجع)", "انسداد المبخر (الداخلية) أو توقف مروحته."],
+            ["صوت عالي من الوحدة الخارجية", "تلف قواعد الضاغط المطاطية أو احتكاك المروحة."],
+            ["صوت احتكاك في الوحدة الداخلية", "كسر في ريشة البلاور أو تلف الببرن (Bearing)."],
+            ["رائحة كريهة عند التشغيل", "تكون عفن وبكتيريا في المبخر (يحتاج غسيل كيميائي)."],
+            ["الجهاز لا يستجيب للريموت", "تلف مستقبل الإشارة (Reciever) أو بطاريات الريموت."],
+            ["الضاغط يفصل ويعمل بسرعة (Short Cycle)", "ارتفاع حرارة الضاغط (غسل الخارجية) أو زيادة غاز."],
+            ["نزول القاطع الكهربائي (الفيوز)", "سحب أمبير عالي بسبب تلف الضاغط أو شورت كهربائي."],
+            ["المروحة الخارجية لا تعمل", "تلف متسعة المروحة أو احتراق المحرك."],
+            ["المروحة الداخلية لا تعمل", "عطل في كارت التحكم (الريلي) أو تلف المروحة."],
+            ["ظهور كود خطأ (E/F) في الشاشة", "عطل بحساسات الحرارة أو نقص غاز (راجع الكتالوج)."],
+            ["خروج بخار أبيض (ضباب) مع الهواء", "رطوبة عالية جداً في الغرفة (ظاهرة طبيعية مؤقتة)."],
+            ["في وضع التدفئة يخرج هواء بارد", "عطل الصمام العاكس (بلف العاكس) أو عدم تفعيله."],
+            ["اهتزاز قوي بالجدار", "عدم تثبيت الحمالة الخارجية جيداً."],
+            ["إضاءة الشاشة ترمش", "رخاوة في توصيلات الأسلاك الكهربائية."],
+            ["الزعانف (Swing) لا تتحرك", "عطل محرك الزعانف الصغير (Stepper Motor)."],
+            ["الجهاز لا يعمل نهائياً (ميت)", "انقطاع الفيوز الداخلي في الكارت أو مصدر الكهرباء."],
+            ["ارتفاع صوت الضاغط تدريجياً", "تلف ميكانيكي داخلي ونقص الزيت."],
+            ["خروج ماء من الوحدة الخارجية شتاءً", "عملية إذابة الثلج (Defrost) وهي طبيعية."],
+            ["تجمد المواسير والضاغط متوقف", "وجود سدد (Kink) أو خفس في المواسير."],
+            ["شاشة الريموت باهتة", "ضعف البطاريات."],
+            ["صوت طقطقة بلاستيك", "تمدد وتقلص البلاستيك بسبب الحرارة (طبيعي)."],
+            ["صوت أزيز (Humming) والجهاز مطفأ", "صوت المحول (Transformer) في الكارت (طبيعي)."],
+            ["الضاغط يعمل ثم يفصل (Overload)", "فولتية ضعيفة جداً أو مكثف خارجي متسخ."],
+            ["تبريد زائد جداً (تجميد الغرفة)", "ضبط الريموت خاطئ أو عطل حساس الغرفة."],
+            ["الهواء حار في وضع التبريد", "اختيار وضع المروحة (Fan) بدلاً من التبريد (Cool) بالخطأ."]
+        ];
+
+        function fillIssues() {
+            let h = "";
+            issues.forEach((is, i) => {
+                h += `<div class="issue-card"><span class="issue-q">${i + 1}. ${is[0]}</span><span style="font-size:0.95rem; color:var(--white);">✅ الحل الهندسي: ${is[1]}</span></div>`;
+            });
+            document.getElementById('thirtyIssuesList').innerHTML = h;
+        }
+
+        window.onload = fillIssues;
+
+        function showPage(id) {
+            document.getElementById('mainView').style.display = 'none';
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+            document.getElementById(id).style.display = 'flex';
+            window.scrollTo(0,0);
+        }
+
+        function showMain() {
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+            document.getElementById('mainView').style.display = 'flex';
+        }
+
+        function calcLoad() {
+            const l = document.getElementById('L').value;
+            const w = document.getElementById('W').value;
+            const h_val = document.getElementById('H').value;
+            const f = document.getElementById('floor').value; // 300 or 350
+            
+            if(l && w && h_val) {
+                let btu = (l * w * h_val * f);
+                let tons = Math.ceil(btu / 12000);
+                if(tons < 1) tons = 1;
+
+                document.getElementById('resLoad').innerHTML = ``;
+                document.getElementById('resLoad').innerHTML = `<div style="color:var(--white); font-size:1.4rem; font-weight:bold; margin-top:15px; text-align:center;">السعة المطلوبة: ${tons} طن</div>`;
+                document.getElementById('loadNote').style.display = 'block';
+            }
+        }
+
+        function searchError() {
+            const b = document.getElementById('brandSelect').value;
+            const c = document.getElementById('errorCode').value.toUpperCase().trim();
+            const nB = document.getElementById('resNameBox'), sB = document.getElementById('resSolBox');
+            const link = document.getElementById('catalogLink');
+            
+            nB.style.display = 'none'; sB.style.display = 'none'; link.style.display = 'none';
+
+            if(b) {
+                const brandText = document.getElementById('brandSelect').options[document.getElementById('brandSelect').selectedIndex].text;
+                const brandName = brandText.split('(')[0].trim();
+                link.href = `https://www.google.com/search?q=${encodeURIComponent(brandName)}+air+conditioner+error+codes+manual`;
+                link.style.display = 'block';
+            }
+
+            if (b && c && errorData[b] && errorData[b][c]) {
+                nB.innerText = "العطل: " + errorData[b][c][0];
+                sB.innerText = "الحل الهندسي: " + errorData[b][c][1];
+                nB.style.display = 'block'; sB.style.display = 'block';
+            } else if (b && c) {
+                nB.innerText = "كود العطل غير معروف للشركة المحددة";
+                sB.innerText = "يرجى مراجعة كتالوج الشركة للتأكد من الكود";
+                nB.style.display = 'block'; sB.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
