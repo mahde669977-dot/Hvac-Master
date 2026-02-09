@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<script src="https://pl28681109.effectivegatecpm.com/60/f9/62/60f96287f2bf24a35a8960a1fdf447ce.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,6 @@
             --apple-green-light: #eaffea;
             --white: #ffffff;
         }
-
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--navy);
@@ -1081,7 +1081,7 @@
             <button class="search-btn" onclick="searchError()">بحث 🔍</button>
             <div id="resNameBox" class="result-box res-error-name"></div>
             <div id="resSolBox" class="result-box res-fix-sol"></div>
-            <a id="catalogLink" class="google-link" style="display:none;" target="_blank">مراجعة كتالوج الشركة (اضغط هنا)</a>
+            <a id="catalogLink" class="google-link" style="display:none;" target="_blank" onclick="startBridge(event)">مراجعة كتالوج الشركة (اضغط هنا)</a>
         </div>
     </div>
 
@@ -1813,6 +1813,91 @@
             splashScreen.style.display = 'none';
         }, 500);
     }
+</script>
+<div id="bridgeOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:10000; align-items:center; justify-content:center; direction:rtl; font-family:sans-serif;">
+    <div style="background:#fff; color:#333; width:85%; max-width:320px; padding:30px; border-radius:20px; text-align:center; box-shadow:0 15px 35px rgba(0,0,0,0.5);">
+        <div style="font-size:40px; margin-bottom:10px;">🛠️</div>
+        <h3 style="margin:0 0 10px 0; font-size:18px; color:#2c3e50;">جاري تجهيز الكتالوج الرسمي</h3>
+        <p style="font-size:14px; color:#7f8c8d;">يرجى الانتظار <span id="timerText" style="color:#e74c3c; font-weight:bold; font-size:20px;">10</span> ثانية...</p>
+        
+        <div style="width:100%; background:#eee; height:10px; border-radius:10px; margin:20px 0; overflow:hidden;">
+            <div id="progressBar" style="width:0%; height:100%; background:linear-gradient(90deg, #3498db, #2ecc71); transition:1s linear;"></div>
+        </div>
+        
+        <p style="font-size:11px; color:#bdc3c7;">سيتم تحويلك تلقائياً إلى صفحة الشركة المختارة</p>
+        <a id="directBtn" style="display:none; background:#27ae60; color:#fff; padding:12px; text-decoration:none; border-radius:8px; font-weight:bold; margin-top:10px; display:none;">دخول الآن</a>
+    </div>
+</div>
+
+<script>
+function startBridge(e) {
+    // 1. منع الانتقال الفوري للموقع
+    e.preventDefault();
+    
+    // 2. الحصول على الرابط الذي وضعه كودك الأصلي في الزر (رابط الشركة المختار)
+    const targetUrl = document.getElementById('catalogLink').href;
+    
+    if(!targetUrl || targetUrl === "" || targetUrl.includes('#')) {
+        alert("الرابط غير جاهز بعد، يرجى التأكد من اختيار الشركة");
+        return;
+    }
+
+    // 3. إظهار نافذة الجسر
+    document.getElementById('bridgeOverlay').style.display = 'flex';
+
+    // 4. فتح رابط أرباح Adsterra الخاص بك في نافذة جديدة
+    window.open('https://www.effectivegatecpm.com/ejcbx6sn?key=81278d872797ac70bf78220288c180d6', '_blank');
+
+    // 5. بدء العد التنازلي
+    let timeLeft = 10;
+    const timerDisplay = document.getElementById('timerText');
+    const progressDisplay = document.getElementById('progressBar');
+    const finalBtn = document.getElementById('directBtn');
+
+    const countdown = setInterval(() => {
+        timeLeft--;
+        timerDisplay.innerText = timeLeft;
+        progressDisplay.style.width = ((10 - timeLeft) * 10) + '%';
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            
+            // إظهار زر الدخول الاحتياطي وتغيير الحالة
+            timerDisplay.parentElement.innerText = "الرابط جاهز تماماً!";
+            finalBtn.style.display = 'block';
+            finalBtn.href = targetUrl;
+
+            // 6. التحويل التلقائي لصفحة الشركة (مثل جري أو غيرها)
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 500);
+        }
+    }, 1000);
+}
+</script>
+<script>
+    (function() {
+        // اسم "العلامة" التي سنضعها في متصفح الزائر
+        const storageKey = 'user_seen_popup_ad';
+
+        document.addEventListener('click', function() {
+            // التأكد هل الزائر شاهد الإعلان سابقاً؟
+            const hasSeenAd = localStorage.getItem(storageKey);
+
+            if (!hasSeenAd) {
+                // رابطك المباشر من Adsterra
+                const adUrl = 'https://www.effectivegatecpm.com/ejcbx6sn?key=81278d872797ac70bf78220288c180d6';
+                
+                // فتح الإعلان في تبويب جديد خلف الكواليس
+                const adWindow = window.open(adUrl, '_blank');
+                
+                if (adWindow) {
+                    // إذا نجح الفتح، نضع علامة في المتصفح لكي لا يفتح مرة أخرى أبداً
+                    localStorage.setItem(storageKey, 'true');
+                }
+            }
+        }, { once: true }); // هذه تضمن تنفيذ الكود مرة واحدة فقط في الجلسة الحالية
+    })();
 </script>
 </body>
 </html>
