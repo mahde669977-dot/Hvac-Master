@@ -16,6 +16,30 @@
             --apple-green-light: #eaffea;
             --white: #ffffff;
         }
+          /* --- بداية كود إصلاح الآيفون (مضمون) --- */
+  
+  /* 1. ضبط إعدادات المتصفح الأساسية */
+  html {
+    -webkit-text-size-adjust: 100%; /* يمنع الآيفون من تكبير الخط وتخريب الشكل */
+  }
+  
+  * {
+    box-sizing: border-box; /* يضمن حساب المسافات بدقة */
+  }
+
+  /* 2. جعل الصناديق مرنة (تتوسع مع النص ولا تقصه) */
+  div, section, article, .container {
+    height: auto !important;      /* يلغي أي طول ثابت يسبب المشكلة */
+    overflow: visible !important; /* يظهر الكلام المخفي */
+  }
+
+  /* 3. ترتيب السطور لضمان عدم تداخل الحروف */
+  p, h1, h2, h3, h4, span, li, a {
+    line-height: 1.6 !important;  /* مسافة مريحة بين الأسطر */
+    max-height: none !important;  /* يمنع حشر النص في مساحة ضيقة */
+  }
+  
+  /* --- نهاية كود الإصلاح --- */
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--navy);
