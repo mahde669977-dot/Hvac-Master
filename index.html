@@ -16,49 +16,25 @@
             --apple-green-light: #eaffea;
             --white: #ffffff;
         }
-  /* --- الحل الجذري النهائي (بدون أخطاء) --- */
-  
-  /* 1. إجبار المتصفح على إظهار شريط التمرير */
+  /* إصلاح النزول لأسفل في الآيفون والكمبيوتر دون تخريب الأندرويد */
   html, body {
     height: auto !important;
-    min-height: 100vh !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
+    overflow-y: visible !important; /* السماح بالنزول لأسفل */
+    overflow-x: hidden !important; /* منع الاهتزاز الجانبي */
+    -webkit-overflow-scrolling: touch !important; /* سلاسة للأيفون */
   }
 
-  /* 2. تدمير الأحجام المطاطية وتثبيت الخطوط */
-  h1, h2, h3, p, span, li, a {
-    font-size: 16px !important;
-    line-height: 1.6 !important;
-  }
-  h1 { font-size: 26px !important; }
-  h2 { font-size: 22px !important; }
-  
-  /* 3. فك القيود عن المربع الأزرق (Card) */
-  .card, .container, section, div {
+  .container, .card, section, div {
     height: auto !important;
-    min-height: fit-content !important;
     max-height: none !important;
     overflow: visible !important;
-    padding-bottom: 40px !important;
   }
 
-  /* 4. حماية زر ستارت (Start) */
-  button, .btn, input {
-    font-size: 18px !important;
-    margin-top: 25px !important;
-    margin-bottom: 60px !important;
-    position: relative !important;
-    z-index: 9999 !important;
-    display: inline-block !important;
-  }
-
-  /* 5. منع الايفون من التكبير التلقائي */
-  * {
-    -webkit-text-size-adjust: 100% !important;
-    box-sizing: border-box !important;
-  }
+  /* جعل زر ستارت دائماً يترك مسافة في الأسفل لكي تراه */
+  button, .btn {
+    margin-bottom: 50px !important;
+        }
+                
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--navy);
