@@ -16,50 +16,25 @@
             --apple-green-light: #eaffea;
             --white: #ffffff;
         }
-/* --- كود الجوكر لإصلاح الآيفون والاندرويد معاً --- */
-
-/* 1. منع الآيفون من تضخيم الخطوط عشوائياً */
-html {
-    -webkit-text-size-adjust: 100% !important;
+  /* إصلاح الآيفون بدون تدمير نظام الصفحات */
+  
+  html, body {
+    -webkit-text-size-adjust: 100% !important; /* حل مشكلة الخط الكبير في الآيفون */
     text-size-adjust: 100% !important;
-}
+    overflow-y: auto !important; /* حل مشكلة تجميد الشاشة والسماح بالسحب */
+    height: 100%; /* الحفاظ على طول الصفحة الأصلي */
+    -webkit-overflow-scrolling: touch;
+  }
 
-/* 2. فك تجميد الشاشة والسماح بالسحب (Scroll) في كل الأجهزة */
-html, body {
-    position: relative !important;
-    height: auto !important;
-    min-height: 100% !important;
-    overflow-y: auto !important; /* يسمح بالتمرير */
-    overflow-x: hidden !important; /* يمنع الاهتزاز الجانبي */
-    -webkit-overflow-scrolling: touch !important; /* يجعل التمرير في الآيفون بطلقة */
-}
+  /* هذا السطر فقط لإصلاح الخطوط دون التأثير على ظهور واختفاء الصفحات */
+  p, span, h1, h2, h3, a {
+    max-height: 999999px !important; 
+  }
 
-/* 3. ضغط النصوص وجعلها "جوكر" تتكيف مع حجم الشاشة (Mobile Only) */
-@media screen and (max-width: 480px) {
-    /* منع النصوص من التداخل أو التضخم */
-    * {
-        max-height: 999999px !important; /* خدعة برمجية لآيفون لإصلاح حجم الخط */
-    }
-
-    h1 { font-size: 24px !important; line-height: 1.2 !important; }
-    p, span, div { font-size: 16px !important; line-height: 1.4 !important; }
-
-    /* الحاوية الكبرى: نجعلها مرنة لكي يظهر زر Start مهما كان حجم الإعلان */
-    .container, .card, [class*="wrapper"] {
-        display: flex !important;
-        flex-direction: column !important;
-        height: auto !important;
-        min-height: 100vh !important;
-        padding-bottom: 80px !important; /* مساحة أمان لزر الستارت */
-    }
-}
-
-/* 4. الحفاظ على شكل الأزرار مضغوطة ومنظمة */
-button, .btn {
-    flex-shrink: 0 !important;
-    margin-top: 15px !important;
-}
-
+  /* تأكيد على أن زر الاستارت سيكون قابلاً للوصول */
+  .start-btn-container {
+    padding-bottom: 50px;
+  }
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--navy);
