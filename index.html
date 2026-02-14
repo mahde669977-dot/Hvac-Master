@@ -16,25 +16,7 @@
             --apple-green-light: #eaffea;
             --white: #ffffff;
         }
-  /* إصلاح الآيفون بدون تدمير نظام الصفحات */
-  
-  html, body {
-    -webkit-text-size-adjust: 100% !important; /* حل مشكلة الخط الكبير في الآيفون */
-    text-size-adjust: 100% !important;
-    overflow-y: auto !important; /* حل مشكلة تجميد الشاشة والسماح بالسحب */
-    height: 100%; /* الحفاظ على طول الصفحة الأصلي */
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* هذا السطر فقط لإصلاح الخطوط دون التأثير على ظهور واختفاء الصفحات */
-  p, span, h1, h2, h3, a {
-    max-height: 999999px !important; 
-  }
-
-  /* تأكيد على أن زر الاستارت سيكون قابلاً للوصول */
-  .start-btn-container {
-    padding-bottom: 50px;
-  }
+        
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--navy);
