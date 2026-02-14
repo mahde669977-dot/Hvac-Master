@@ -17,38 +17,38 @@
             --white: #ffffff;
         }
 <style>
-  /* 1. السيطرة الكاملة على حجم الخط في كل الأجهزة والأنظمة */
-  html {
-    -webkit-text-size-adjust: 100% !important;
-    -moz-text-size-adjust: 100% !important;
-    -ms-text-size-adjust: 100% !important;
-    text-size-adjust: 100% !important;
+  /* 1. إجبار الصفحة على قبول التمرير مهما حدث */
+  html, body {
+    overflow-y: auto !important; /* يسمح بالنزول للأسفل */
+    overflow-x: hidden !important; /* يمنع الاهتزاز يميناً ويساراً */
+    height: auto !important; /* يلغي الطول الثابت الذي يحبس الزر */
+    -webkit-overflow-scrolling: touch; /* يجعل التمرير ناعماً جداً في الآيفون */
   }
 
-  /* 2. حل مشكلة تداخل الأسطر واختفاء الأزرار */
-  /* هذا الجزء يضمن أن المحتوى يظهر بمرونة ولا يختفي زر Start */
-  body, .container, .card, section, div {
-    max-height: 999999px !important; /* خدعة برمجية لسفاري والويندوز لمنع قص العناصر */
-    height: auto !important; 
-    min-height: min-content !important;
+  /* 2. تصغير حجم الخط ليتناسب مع شاشة الآيفون الصغيرة */
+  @media screen and (max-width: 480px) {
+    h1, h2 { font-size: 22px !important; } /* تصغير العناوين الكبيرة */
+    p, span { font-size: 16px !important; } /* تصغير النصوص لتوفير مساحة */
+    
+    .container, .card {
+      margin-top: 10px !important; /* تقليل المسافة العلوية لترك مساحة للإعلان */
+      padding: 15px !important;
+    }
   }
 
-  /* 3. الحفاظ على سلاسة الفريمات وتجنب تشوه الخطوط */
+  /* 3. ضمان ظهور زر Start وعدم اختفائه */
+  button, #start-btn {
+    display: block !important;
+    margin: 20px auto !important;
+    padding: 12px 30px !important;
+    position: relative !important;
+    z-index: 999; /* ليكون فوق أي عنصر آخر */
+  }
+
+  /* 4. منع الآيفون من تكبير الخط تلقائياً */
   * {
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
+    -webkit-text-size-adjust: 100% !important;
     box-sizing: border-box !important;
-  }
-
-  /* 4. منع تضخم النصوص المفاجئ في الشاشات الكبيرة (ويندوز وماك) */
-  p, span, h1, h2, h3, li, a {
-    line-height: 1.4 !important; /* تباعد سطر مثالي */
-    overflow-wrap: break-word !important; /* منع خروج الكلمات خارج الإطار */
-  }
-
-  /* 5. إصلاح خاص لزر Start والحقول لضمان عدم نزولها أو صعودها */
-  button, .btn, input {
-    flex-shrink: 0 !important; /* يمنع انضغاط الأزرار في الآيفون */
   }
 </style>
         body {
