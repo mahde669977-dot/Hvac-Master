@@ -16,20 +16,50 @@
             --apple-green-light: #eaffea;
             --white: #ffffff;
         }
-  /* 1. السيطرة على الصفحة ككل دون التدخل في العناصر الداخلية */
-  html, body {
+/* --- كود الجوكر لإصلاح الآيفون والاندرويد معاً --- */
+
+/* 1. منع الآيفون من تضخيم الخطوط عشوائياً */
+html {
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+}
+
+/* 2. فك تجميد الشاشة والسماح بالسحب (Scroll) في كل الأجهزة */
+html, body {
+    position: relative !important;
     height: auto !important;
     min-height: 100% !important;
-    overflow-y: auto !important; /* يسمح بالنزول إذا كان المحتوى طويلاً */
-    -webkit-overflow-scrolling: touch; /* سلاسة للأيفون */
-    -webkit-text-size-adjust: 100%; /* منع تكبير الخط في الأيفون */
-  }
+    overflow-y: auto !important; /* يسمح بالتمرير */
+    overflow-x: hidden !important; /* يمنع الاهتزاز الجانبي */
+    -webkit-overflow-scrolling: touch !important; /* يجعل التمرير في الآيفون بطلقة */
+}
 
-  /* 2. تصليح الحاوية الكبرى فقط لتقبل التمدد */
-  #main-container, .main-wrapper, .app-container {
-    height: auto !important;
-    min-height: 100vh !important;
-  }
+/* 3. ضغط النصوص وجعلها "جوكر" تتكيف مع حجم الشاشة (Mobile Only) */
+@media screen and (max-width: 480px) {
+    /* منع النصوص من التداخل أو التضخم */
+    * {
+        max-height: 999999px !important; /* خدعة برمجية لآيفون لإصلاح حجم الخط */
+    }
+
+    h1 { font-size: 24px !important; line-height: 1.2 !important; }
+    p, span, div { font-size: 16px !important; line-height: 1.4 !important; }
+
+    /* الحاوية الكبرى: نجعلها مرنة لكي يظهر زر Start مهما كان حجم الإعلان */
+    .container, .card, [class*="wrapper"] {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        padding-bottom: 80px !important; /* مساحة أمان لزر الستارت */
+    }
+}
+
+/* 4. الحفاظ على شكل الأزرار مضغوطة ومنظمة */
+button, .btn {
+    flex-shrink: 0 !important;
+    margin-top: 15px !important;
+}
+
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--navy);
