@@ -3,7 +3,7 @@
 <script src="https://pl28681109.effectivegatecpm.com/60/f9/62/60f96287f2bf24a35a8960a1fdf447ce.js"></script>
 <head>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موقع الخبير للتكييف و التبريد</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -16,25 +16,20 @@
             --apple-green-light: #eaffea;
             --white: #ffffff;
         }
-  /* إصلاح النزول لأسفل في الآيفون والكمبيوتر دون تخريب الأندرويد */
+  /* 1. السيطرة على الصفحة ككل دون التدخل في العناصر الداخلية */
   html, body {
     height: auto !important;
-    overflow-y: visible !important; /* السماح بالنزول لأسفل */
-    overflow-x: hidden !important; /* منع الاهتزاز الجانبي */
-    -webkit-overflow-scrolling: touch !important; /* سلاسة للأيفون */
+    min-height: 100% !important;
+    overflow-y: auto !important; /* يسمح بالنزول إذا كان المحتوى طويلاً */
+    -webkit-overflow-scrolling: touch; /* سلاسة للأيفون */
+    -webkit-text-size-adjust: 100%; /* منع تكبير الخط في الأيفون */
   }
 
-  .container, .card, section, div {
+  /* 2. تصليح الحاوية الكبرى فقط لتقبل التمدد */
+  #main-container, .main-wrapper, .app-container {
     height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
+    min-height: 100vh !important;
   }
-
-  /* جعل زر ستارت دائماً يترك مسافة في الأسفل لكي تراه */
-  button, .btn {
-    margin-bottom: 50px !important;
-        }
-                
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--navy);
