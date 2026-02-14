@@ -16,39 +16,39 @@
             --apple-green-light: #eaffea;
             --white: #ffffff;
         }
-<style>
-  /* --- الحل الجذري النهائي (الجوكر) --- */
+  /* --- الحل الجذري النهائي (بدون أخطاء) --- */
   
-  /* 1. إجبار المتصفح على إظهار شريط التمرير (السكرول) مهما حدث */
+  /* 1. إجبار المتصفح على إظهار شريط التمرير */
   html, body {
     height: auto !important;
     min-height: 100vh !important;
-    overflow-y: scroll !important; /* إجبار السكرول */
+    overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
   }
 
-  /* 2. تدمير الأحجام المطاطية التي تسبب تضخم الخط في الايفون والويندوز */
-  /* إجبار المتصفح على استخدام أحجام ثابتة (بيكسل) */
-  h1, h1 * { font-size: 26px !important; line-height: 1.4 !important; }
-  h2, h2 * { font-size: 22px !important; line-height: 1.4 !important; }
-  h3, h3 * { font-size: 18px !important; line-height: 1.4 !important; }
-  p, span, li, a { font-size: 16px !important; line-height: 1.6 !important; }
+  /* 2. تدمير الأحجام المطاطية وتثبيت الخطوط */
+  h1, h2, h3, p, span, li, a {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+  h1 { font-size: 26px !important; }
+  h2 { font-size: 22px !important; }
   
-  /* 3. فك القيود عن المربع الأزرق (Card) ليتمدد للأسفل براحته */
+  /* 3. فك القيود عن المربع الأزرق (Card) */
   .card, .container, section, div {
     height: auto !important;
     min-height: fit-content !important;
     max-height: none !important;
     overflow: visible !important;
-    padding-bottom: 40px !important; /* مساحة إضافية للزر */
+    padding-bottom: 40px !important;
   }
 
-  /* 4. حماية زر ستارت (Start) ليكون ظاهراً وقابلاً للضغط دائماً */
+  /* 4. حماية زر ستارت (Start) */
   button, .btn, input {
-    font-size: 18px !important; /* توحيد حجم الزر */
+    font-size: 18px !important;
     margin-top: 25px !important;
-    margin-bottom: 60px !important; /* مساحة فارغة تحته لكي ينزل السكرول إليه رغم وجود الإعلان */
+    margin-bottom: 60px !important;
     position: relative !important;
     z-index: 9999 !important;
     display: inline-block !important;
@@ -59,7 +59,6 @@
     -webkit-text-size-adjust: 100% !important;
     box-sizing: border-box !important;
   }
-</style>
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--navy);
