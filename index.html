@@ -3,7 +3,7 @@
 <script src="https://pl28681109.effectivegatecpm.com/60/f9/62/60f96287f2bf24a35a8960a1fdf447ce.js"></script>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>موقع الخبير للتكييف و التبريد</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -643,9 +643,241 @@
             display: block;
             margin-top: 4px;
         }
+
+        /* تحسينات متوافقة مع iOS والأندرويد */
+        html, body {
+            height: 100%;
+            overflow-y: auto !important;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            padding-bottom: 120px;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        #splash-screen-overlay.splash-hidden {
+            display: none !important;
+        }
+
+        .page, .menu-grid, .text-content, .detail-section,
+        .table-responsive, .compact-table, .remote-table,
+        .capacitor-table, .amperage-table, .refrigerant-table,
+        .enhanced-table, .final-amperage-table, .final-refrigerant-table {
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            box-sizing: border-box;
+        }
+
+        p, h1, h2, h3, h4, td, th, li, div {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        table {
+            width: auto !important;
+            min-width: 100%;
+            max-width: 100%;
+            white-space: nowrap;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: var(--navy);
+            padding: 10px 0;
+        }
+    </style>
+    <style>
+    /* استيراد الخط */
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap');
+
+    /* الحاوية الرئيسية */
+    #splash-screen-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #001f3f; /* نيلي غامق */
+        z-index: 2147483647; /* أعلى طبقة ممكنة */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* توسيط عمودي */
+        align-items: center;
+        text-align: center;
+        font-family: 'Tajawal', sans-serif;
+        direction: rtl;
+        padding: 15px;
+        box-sizing: border-box;
+        
+        /* منع التمرير نهائياً */
+        overflow: hidden; 
+        touch-action: none; /* يمنع السحب باللمس على الموبايل */
+        -webkit-overflow-scrolling: none;
+        overscroll-behavior: none;
+    }
+
+    /* البسملة */
+    .splash-bismillah {
+        font-size: 2rem;
+        font-weight: 800; /* سميك جداً */
+        color: #ffffff;
+        margin-bottom: 15px;
+        margin-top: -20px; /* رفع قليلاً للأعلى */
+    }
+
+    /* الآية القرآنية */
+    .splash-verse {
+        color: #E1AD01; /* أصفر خردلي */
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin: 5px 0 10px 0;
+        line-height: 1.6;
+        white-space: nowrap; 
+    }
+
+    /* صدق الله العلي العظيم (مطابقة للبسملة) */
+    .splash-sadaq {
+        font-size: 1.3rem; /* نفس حجم البسملة */
+        font-weight: 800;  /* نفس سمك البسملة */
+        color: #ffffff;
+        margin-bottom: 25px;
+    }
+
+    /* صندوق النص الترحيبي */
+    .splash-welcome-block {
+        width: 100%;
+        max-width: 400px; /* تحديد العرض ليكون "ملموم" */
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-radius: 15px;
+        color: #ffffff;
+        border: 2px solid rgba(225, 173, 1, 0.4);
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* العناوين داخل الصندوق (أول سطرين) */
+    .splash-header-line {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1rem;
+        color: #fff;
+        margin: 0 0 5px 0;
+        white-space: nowrap; /* سطر واحد لا ينكسر */
+    }
+
+    /* العنوان الثاني المميز */
+    .splash-sub-header {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1rem;
+        color: #fff;
+        margin: 0 0 15px 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255,255,255,0.1); /* خط فاصل خفيف */
+        width: 100%; /* ليأخذ عرض الصندوق */
+    }
+
+    /* النص الأساسي (تنسيق البلوك الملموم) */
+    .splash-body-text {
+        text-align: justify; /* محاذاة من اليمين واليسار */
+        text-align-last: center; /* جعل السطر الأخير في الوسط */
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #ffffff;
+        margin: 0;
+        width: 100%; /* ملء عرض الصندوق */
+    }
+
+    /* زر Start */
+    .splash-btn {
+        background-color: #E1AD01;
+        color: #000000;
+        border: none;
+        padding: 12px 60px;
+        font-size: 1.4rem;
+        font-weight: 900;
+        border-radius: 50px;
+        cursor: pointer;
+        font-family: 'Tajawal', sans-serif;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        margin-top: 5px; 
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* رابط المطور */
+    .splash-dev-link {
+        position: absolute;
+        bottom: 20px; 
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        z-index: 2;
+    }
+
+    /* كلاس الإخفاء */
+    .splash-hidden {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    /* ميديا كويري لضبط الآية في الشاشات الصغيرة جداً */
+    @media (max-width: 400px) {
+        .splash-verse { font-size: 1.2rem; white-space: normal; }
+        .splash-bismillah, .splash-sadaq { font-size: 1.2rem; }
+        .splash-welcome-block { padding: 15px; max-width: 90%; }
+        .splash-body-text { font-size: 0.88rem; line-height: 1.6; }
+        .splash-header-line, .splash-sub-header { font-size: 0.9rem; }
+    }
     </style>
 </head>
 <body>
+
+    <div id="splash-screen-overlay">
+        <div class="splash-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+        <div class="splash-verse">
+            ( وَرَفَعْنَا بَعْضَهُمْ فَوْقَ بَعْضٍ دَرَجَاتٍ ۗ<br>
+            وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ )
+        </div>
+        <div class="splash-sadaq">صَدَقَ اللهُ العَلِيُّ العَظِيمُ</div>
+        <div class="splash-welcome-block">
+            <div class="splash-header-line">أهلاً وسهلاً بكم في عالم الخبير ..</div>
+            <div class="splash-sub-header">حيث لكل سؤال تقني إجابة هندسية! ❄️⚙️</div>
+            <div class="splash-body-text">
+                يسعدنا انضمامك إلينا. لقد صممنا هذا الموقع ليكون دليلك الشامل والموثوق في عالم التكييف والتبريد. سواء كنت مهندساً يبحث عن الدقة، أو فنياً يطمح للاحتراف، أو مستخدماً يبحث عن حلول ذكية.. موقع الخبير هو دليلك الاول الذي يجمع بين المعلومة الهندسية والخبرة العملية. أنت الآن في المكان الصحيح.. تفضل باستكشاف مكتبة المعلومات، فنحن هنا لخدمتك.
+            </div>
+        </div>
+        <button class="splash-btn" onclick="enterSite()">START</button>
+        <a href="https://wa.me/9647822455868?text=أهلاً،%20شاهدت%20موقعكم%20و%20أريد%20الاستفسار%20عن%20شيء%20ما" target="_blank" class="splash-dev-link">
+            للتواصل مع المطور ( اضغط هنا 🌐 )
+        </a>
+    </div>
 
     <header><h1>موقع الخبير<br>للتكييف و التبريد</h1></header>
 
@@ -736,7 +968,7 @@
 
             <h4 style="text-align:center; margin-top:30px; margin-bottom:15px;">جدول اختيار المتسعة</h4>
 <div style="display: flex; justify-content: center; width: 100%;">
-    <table style="border-collapse: collapse; font-size: 82rem; margin: 0 auto; width: auto; min-width: 25px;">
+    <table style="border-collapse: collapse; font-size: 0.9rem; margin: 0 auto; width: auto; min-width: 250px;">
         <thead>
             <tr>
                 <th style="padding: 6px 8px; border: 1px solid var(--mustard); background: rgba(225, 173, 1, 0.9); color: var(--navy); font-weight: 700; text-align: center; white-space: nowrap; font-size: 1rem;">السعة (طن)</th>
@@ -749,7 +981,7 @@
             <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">2 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">50 - 55 µF</td></tr>
             <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">2.5 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">60 µF</td></tr>
             <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">3 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">60 - 70 µF<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">(غالباً ما تكون 3 Phase)</span></td></tr>
-            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">4 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">µF 70 - 75<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( في حال سنجل Phase ) </span></td></tr>
+            <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">4 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">70 - 75 µF<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( في حال سنجل Phase ) </span></td></tr>
             <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">5 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">80 - 90 µF<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( في حال سنجل Phase )</span></td></tr>
             <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">6 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">بدون متسعة<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( تكون 3 Phase )</span></td></tr>
             <tr><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">7.5 طن</td><td style="padding: 5px 6px; border: 1px solid rgba(255,255,255,0.2); text-align: center; background: rgba(255,255,255,0.02); font-weight: 700; font-size: 0.95rem;">بدون متسعة<br><span style="font-size:0.8rem; color:var(--mustard); font-weight: 700;">( تكون 3 Phase )</span></td></tr>
@@ -1288,6 +1520,21 @@
         <div>رؤية هندسية مُتقدمة دليلكَ الشامل للتَعلم</div>
     </footer>
 
+    <div id="bridgeOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:10000; align-items:center; justify-content:center; direction:rtl; font-family:sans-serif;">
+        <div style="background:#fff; color:#333; width:85%; max-width:320px; padding:30px; border-radius:20px; text-align:center; box-shadow:0 15px 35px rgba(0,0,0,0.5);">
+            <div style="font-size:40px; margin-bottom:10px;">🛠️</div>
+            <h3 style="margin:0 0 10px 0; font-size:18px; color:#2c3e50;">جاري تجهيز الكتالوج الرسمي</h3>
+            <p style="font-size:14px; color:#7f8c8d;">يرجى الانتظار <span id="timerText" style="color:#e74c3c; font-weight:bold; font-size:20px;">10</span> ثانية...</p>
+            
+            <div style="width:100%; background:#eee; height:10px; border-radius:10px; margin:20px 0; overflow:hidden;">
+                <div id="progressBar" style="width:0%; height:100%; background:linear-gradient(90deg, #3498db, #2ecc71); transition:1s linear;"></div>
+            </div>
+            
+            <p style="font-size:11px; color:#bdc3c7;">سيتم تحويلك تلقائياً إلى صفحة الشركة المختارة</p>
+            <a id="directBtn" style="display:none; background:#27ae60; color:#fff; padding:12px; text-decoration:none; border-radius:8px; font-weight:bold; margin-top:10px; display:none;">دخول الآن</a>
+        </div>
+    </div>
+
     <script>
         // بيانات الأعطال للأكواد المحدثة
         const errorData = {
@@ -1611,294 +1858,61 @@
                 nB.style.display = 'block'; sB.style.display = 'block';
             }
         }
-    </script>
-    <style>
-    /* استيراد الخط */
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap');
 
-    /* الحاوية الرئيسية */
-    #splash-screen-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #001f3f; /* نيلي غامق */
-        z-index: 2147483647; /* أعلى طبقة ممكنة */
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* توسيط عمودي */
-        align-items: center;
-        text-align: center;
-        font-family: 'Tajawal', sans-serif;
-        direction: rtl;
-        padding: 15px;
-        box-sizing: border-box;
-        
-        /* منع التمرير نهائياً */
-        overflow: hidden; 
-        touch-action: none; /* يمنع السحب باللمس على الموبايل */
-        -webkit-overflow-scrolling: none;
-        overscroll-behavior: none;
-    }
-
-    /* البسملة */
-    .splash-bismillah {
-        font-size: 2rem;
-        font-weight: 800; /* سميك جداً */
-        color: #ffffff;
-        margin-bottom: 15px;
-        margin-top: -20px; /* رفع قليلاً للأعلى */
-    }
-
-    /* الآية القرآنية */
-    .splash-verse {
-        color: #E1AD01; /* أصفر خردلي */
-        font-size: 1.5rem;
-        font-weight: 800;
-        margin: 5px 0 10px 0;
-        line-height: 1.6;
-        white-space: nowrap; 
-    }
-
-    /* صدق الله العلي العظيم (مطابقة للبسملة) */
-    .splash-sadaq {
-        font-size: 1.3rem; /* نفس حجم البسملة */
-        font-weight: 800;  /* نفس سمك البسملة */
-        color: #ffffff;
-        margin-bottom: 25px;
-    }
-
-    /* صندوق النص الترحيبي */
-    .splash-welcome-block {
-        width: 100%;
-        max-width: 400px; /* تحديد العرض ليكون "ملموم" */
-        background: rgba(255, 255, 255, 0.05);
-        padding: 20px;
-        border-radius: 15px;
-        color: #ffffff;
-        border: 2px solid rgba(225, 173, 1, 0.4);
-        margin-bottom: 25px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* العناوين داخل الصندوق (أول سطرين) */
-    .splash-header-line {
-        text-align: center;
-        font-weight: bold;
-        font-size: 1rem;
-        color: #fff;
-        margin: 0 0 5px 0;
-        white-space: nowrap; /* سطر واحد لا ينكسر */
-    }
-
-    /* العنوان الثاني المميز */
-    .splash-sub-header {
-        text-align: center;
-        font-weight: bold;
-        font-size: 1rem;
-        color: #fff;
-        margin: 0 0 15px 0;
-        padding-bottom: 10px;
-        border-bottom: 1px solid rgba(255,255,255,0.1); /* خط فاصل خفيف */
-        width: 100%; /* ليأخذ عرض الصندوق */
-    }
-
-    /* النص الأساسي (تنسيق البلوك الملموم) */
-    .splash-body-text {
-        text-align: justify; /* محاذاة من اليمين واليسار */
-        text-align-last: center; /* جعل السطر الأخير في الوسط */
-        font-size: 2rem;
-        line-height: 1.8;
-        color: #ffffff;
-        margin: 0;
-        width: 100%; /* ملء عرض الصندوق */
-    }
-
-    /* زر Start */
-    .splash-btn {
-        background-color: #E1AD01;
-        color: #000000;
-        border: none;
-        padding: 12px 60px;
-        font-size: 1.4rem;
-        font-weight: 900;
-        border-radius: 50px;
-        cursor: pointer;
-        font-family: 'Tajawal', sans-serif;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        margin-top: 5px; 
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    /* رابط المطور */
-    .splash-dev-link {
-        position: absolute;
-        bottom: 20px; 
-        font-size: 1.1rem;
-        color: rgba(255, 255, 255, 0.7);
-        text-decoration: none;
-        z-index: 2;
-    }
-
-    /* كلاس الإخفاء */
-    .splash-hidden {
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-
-    /* ميديا كويري لضبط الآية في الشاشات الصغيرة جداً */
-    @media (max-width: 400px) {
-        .splash-verse { font-size: 1.2rem; white-space: normal; }
-        .splash-bismillah, .splash-sadaq { font-size: 1.2rem; }
-        .splash-welcome-block { padding: 15px; max-width: 90%; }
-        .splash-body-text { font-size: 0.88rem; line-height: 1.6; }
-        .splash-header-line, .splash-sub-header { font-size: 0.9rem; }
-    }
-</style>
-
-<div id="splash-screen-overlay">
-    
-    <div class="splash-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
-
-    <div class="splash-verse">
-        ( وَرَفَعْنَا بَعْضَهُمْ فَوْقَ بَعْضٍ دَرَجَاتٍ ۗ<br>
-        وَفَوْقَ كُلِّ ذِي عِلْمٍ عَلِيمٌ )
-    </div>
-
-    <div class="splash-sadaq">صَدَقَ اللهُ العَلِيُّ العَظِيمُ</div>
-
-    <div class="splash-welcome-block">
-        <div class="splash-header-line">أهلاً وسهلاً بكم في عالم الخبير ..</div>
-        
-        <div class="splash-sub-header">حيث لكل سؤال تقني إجابة هندسية! ❄️⚙️</div>
-        
-        <div class="splash-body-text">
-            يسعدنا انضمامك إلينا. لقد صممنا هذا الموقع ليكون دليلك الشامل والموثوق في عالم التكييف والتبريد. سواء كنت مهندساً يبحث عن الدقة، أو فنياً يطمح للاحتراف، أو مستخدماً يبحث عن حلول ذكية.. موقع الخبير هو دليلك الاول الذي يجمع بين المعلومة الهندسية والخبرة العملية. أنت الآن في المكان الصحيح.. تفضل باستكشاف مكتبة المعلومات، فنحن هنا لخدمتك.
-        </div>
-    </div>
-
-    <button class="splash-btn" onclick="enterSite()">START</button>
-
-    <a href="https://wa.me/9647822455868?text=أهلاً،%20شاهدت%20موقعكم%20و%20أريد%20الاستفسار%20عن%20شيء%20ما" target="_blank" class="splash-dev-link">
-        للتواصل مع المطور ( اضغط هنا 🌐 )
-    </a>
-</div>
-
-<script>
-    // عند تحميل الصفحة، نمنع السكرول في الموقع الأصلي
-    document.addEventListener("DOMContentLoaded", function() {
-        document.body.style.overflow = "hidden";
-        // أيضاً نمنع التمرير للعنصر الجذري لزيادة التأكيد
-        document.documentElement.style.overflow = "hidden";
-    });
-
-    function enterSite() {
-        const splashScreen = document.getElementById('splash-screen-overlay');
-        
-        // تفعيل حركة الاختفاء
-        splashScreen.classList.add('splash-hidden');
-        
-        // إعادة تفعيل السكرول للموقع الأصلي
-        document.body.style.overflow = "auto";
-        document.documentElement.style.overflow = "auto";
-
-        // إزالة الواجهة نهائياً من الكود بعد انتهاء الحركة
-        setTimeout(() => {
-            splashScreen.style.display = 'none';
-        }, 500);
-    }
-</script>
-<div id="bridgeOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:10000; align-items:center; justify-content:center; direction:rtl; font-family:sans-serif;">
-    <div style="background:#fff; color:#333; width:85%; max-width:320px; padding:30px; border-radius:20px; text-align:center; box-shadow:0 15px 35px rgba(0,0,0,0.5);">
-        <div style="font-size:40px; margin-bottom:10px;">🛠️</div>
-        <h3 style="margin:0 0 10px 0; font-size:18px; color:#2c3e50;">جاري تجهيز الكتالوج الرسمي</h3>
-        <p style="font-size:14px; color:#7f8c8d;">يرجى الانتظار <span id="timerText" style="color:#e74c3c; font-weight:bold; font-size:20px;">10</span> ثانية...</p>
-        
-        <div style="width:100%; background:#eee; height:10px; border-radius:10px; margin:20px 0; overflow:hidden;">
-            <div id="progressBar" style="width:0%; height:100%; background:linear-gradient(90deg, #3498db, #2ecc71); transition:1s linear;"></div>
-        </div>
-        
-        <p style="font-size:11px; color:#bdc3c7;">سيتم تحويلك تلقائياً إلى صفحة الشركة المختارة</p>
-        <a id="directBtn" style="display:none; background:#27ae60; color:#fff; padding:12px; text-decoration:none; border-radius:8px; font-weight:bold; margin-top:10px; display:none;">دخول الآن</a>
-    </div>
-</div>
-
-<script>
-function startBridge(e) {
-    // 1. منع الانتقال الفوري للموقع
-    e.preventDefault();
-    
-    // 2. الحصول على الرابط الذي وضعه كودك الأصلي في الزر (رابط الشركة المختار)
-    const targetUrl = document.getElementById('catalogLink').href;
-    
-    if(!targetUrl || targetUrl === "" || targetUrl.includes('#')) {
-        alert("الرابط غير جاهز بعد، يرجى التأكد من اختيار الشركة");
-        return;
-    }
-
-    // 3. إظهار نافذة الجسر
-    document.getElementById('bridgeOverlay').style.display = 'flex';
-
-    // 4. فتح رابط أرباح Adsterra الخاص بك في نافذة جديدة
-    window.open('https://www.effectivegatecpm.com/ejcbx6sn?key=81278d872797ac70bf78220288c180d6', '_blank');
-
-    // 5. بدء العد التنازلي
-    let timeLeft = 10;
-    const timerDisplay = document.getElementById('timerText');
-    const progressDisplay = document.getElementById('progressBar');
-    const finalBtn = document.getElementById('directBtn');
-
-    const countdown = setInterval(() => {
-        timeLeft--;
-        timerDisplay.innerText = timeLeft;
-        progressDisplay.style.width = ((10 - timeLeft) * 10) + '%';
-
-        if (timeLeft <= 0) {
-            clearInterval(countdown);
-            
-            // إظهار زر الدخول الاحتياطي وتغيير الحالة
-            timerDisplay.parentElement.innerText = "الرابط جاهز تماماً!";
-            finalBtn.style.display = 'block';
-            finalBtn.href = targetUrl;
-
-            // 6. التحويل التلقائي لصفحة الشركة (مثل جري أو غيرها)
+        function enterSite() {
+            const splashScreen = document.getElementById('splash-screen-overlay');
+            splashScreen.classList.add('splash-hidden');
+            document.body.style.overflow = "auto";
+            document.documentElement.style.overflow = "auto";
+            document.body.style.touchAction = "auto";
             setTimeout(() => {
-                window.location.href = targetUrl;
-            }, 500);
+                splashScreen.style.display = 'none';
+            }, 300);
         }
-    }, 1000);
-}
-</script>
-<script>
-    (function() {
-        // اسم "العلامة" التي سنضعها في متصفح الزائر
-        const storageKey = 'user_seen_popup_ad';
 
-        document.addEventListener('click', function() {
-            // التأكد هل الزائر شاهد الإعلان سابقاً؟
-            const hasSeenAd = localStorage.getItem(storageKey);
-
-            if (!hasSeenAd) {
-                // رابطك المباشر من Adsterra
-                const adUrl = 'https://www.effectivegatecpm.com/ejcbx6sn?key=81278d872797ac70bf78220288c180d6';
-                
-                // فتح الإعلان في تبويب جديد خلف الكواليس
-                const adWindow = window.open(adUrl, '_blank');
-                
-                if (adWindow) {
-                    // إذا نجح الفتح، نضع علامة في المتصفح لكي لا يفتح مرة أخرى أبداً
-                    localStorage.setItem(storageKey, 'true');
-                }
+        function startBridge(e) {
+            e.preventDefault();
+            const targetUrl = document.getElementById('catalogLink').href;
+            if(!targetUrl || targetUrl === "" || targetUrl.includes('#')) {
+                alert("الرابط غير جاهز بعد، يرجى التأكد من اختيار الشركة");
+                return;
             }
-        }, { once: true }); // هذه تضمن تنفيذ الكود مرة واحدة فقط في الجلسة الحالية
-    })();
-</script>
+            document.getElementById('bridgeOverlay').style.display = 'flex';
+            window.open('https://www.effectivegatecpm.com/ejcbx6sn?key=81278d872797ac70bf78220288c180d6', '_blank');
+            let timeLeft = 10;
+            const timerDisplay = document.getElementById('timerText');
+            const progressDisplay = document.getElementById('progressBar');
+            const finalBtn = document.getElementById('directBtn');
+            const countdown = setInterval(() => {
+                timeLeft--;
+                timerDisplay.innerText = timeLeft;
+                progressDisplay.style.width = ((10 - timeLeft) * 10) + '%';
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    timerDisplay.parentElement.innerHTML = "الرابط جاهز تماماً!";
+                    finalBtn.style.display = 'block';
+                    finalBtn.href = targetUrl;
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 500);
+                }
+            }, 1000);
+        }
+    </script>
+    <script>
+        (function() {
+            const storageKey = 'user_seen_popup_ad';
+            document.addEventListener('click', function() {
+                const hasSeenAd = localStorage.getItem(storageKey);
+                if (!hasSeenAd) {
+                    const adUrl = 'https://www.effectivegatecpm.com/ejcbx6sn?key=81278d872797ac70bf78220288c180d6';
+                    const adWindow = window.open(adUrl, '_blank');
+                    if (adWindow) {
+                        localStorage.setItem(storageKey, 'true');
+                    }
+                }
+            }, { once: true });
+        })();
+    </script>
 </body>
 </html>
