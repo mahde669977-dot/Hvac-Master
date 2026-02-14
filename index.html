@@ -3,7 +3,7 @@
 <script src="https://pl28681109.effectivegatecpm.com/60/f9/62/60f96287f2bf24a35a8960a1fdf447ce.js"></script>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>موقع الخبير للتكييف و التبريد</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -16,30 +16,41 @@
             --apple-green-light: #eaffea;
             --white: #ffffff;
         }
-          /* --- بداية كود إصلاح الآيفون (مضمون) --- */
-  
-  /* 1. ضبط إعدادات المتصفح الأساسية */
+<style>
+  /* 1. السيطرة الكاملة على حجم الخط في كل الأجهزة والأنظمة */
   html {
-    -webkit-text-size-adjust: 100%; /* يمنع الآيفون من تكبير الخط وتخريب الشكل */
+    -webkit-text-size-adjust: 100% !important;
+    -moz-text-size-adjust: 100% !important;
+    -ms-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
   }
-  
+
+  /* 2. حل مشكلة تداخل الأسطر واختفاء الأزرار */
+  /* هذا الجزء يضمن أن المحتوى يظهر بمرونة ولا يختفي زر Start */
+  body, .container, .card, section, div {
+    max-height: 999999px !important; /* خدعة برمجية لسفاري والويندوز لمنع قص العناصر */
+    height: auto !important; 
+    min-height: min-content !important;
+  }
+
+  /* 3. الحفاظ على سلاسة الفريمات وتجنب تشوه الخطوط */
   * {
-    box-sizing: border-box; /* يضمن حساب المسافات بدقة */
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    box-sizing: border-box !important;
   }
 
-  /* 2. جعل الصناديق مرنة (تتوسع مع النص ولا تقصه) */
-  div, section, article, .container {
-    height: auto !important;      /* يلغي أي طول ثابت يسبب المشكلة */
-    overflow: visible !important; /* يظهر الكلام المخفي */
+  /* 4. منع تضخم النصوص المفاجئ في الشاشات الكبيرة (ويندوز وماك) */
+  p, span, h1, h2, h3, li, a {
+    line-height: 1.4 !important; /* تباعد سطر مثالي */
+    overflow-wrap: break-word !important; /* منع خروج الكلمات خارج الإطار */
   }
 
-  /* 3. ترتيب السطور لضمان عدم تداخل الحروف */
-  p, h1, h2, h3, h4, span, li, a {
-    line-height: 1.6 !important;  /* مسافة مريحة بين الأسطر */
-    max-height: none !important;  /* يمنع حشر النص في مساحة ضيقة */
+  /* 5. إصلاح خاص لزر Start والحقول لضمان عدم نزولها أو صعودها */
+  button, .btn, input {
+    flex-shrink: 0 !important; /* يمنع انضغاط الأزرار في الآيفون */
   }
-  
-  /* --- نهاية كود الإصلاح --- */
+</style>
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--navy);
