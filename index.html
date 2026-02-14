@@ -17,35 +17,44 @@
             --white: #ffffff;
         }
 <style>
-  /* 1. إجبار الصفحة على قبول التمرير مهما حدث */
+  /* --- الحل الجذري النهائي (الجوكر) --- */
+  
+  /* 1. إجبار المتصفح على إظهار شريط التمرير (السكرول) مهما حدث */
   html, body {
-    overflow-y: auto !important; /* يسمح بالنزول للأسفل */
-    overflow-x: hidden !important; /* يمنع الاهتزاز يميناً ويساراً */
-    height: auto !important; /* يلغي الطول الثابت الذي يحبس الزر */
-    -webkit-overflow-scrolling: touch; /* يجعل التمرير ناعماً جداً في الآيفون */
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: scroll !important; /* إجبار السكرول */
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
-  /* 2. تصغير حجم الخط ليتناسب مع شاشة الآيفون الصغيرة */
-  @media screen and (max-width: 480px) {
-    h1, h2 { font-size: 22px !important; } /* تصغير العناوين الكبيرة */
-    p, span { font-size: 16px !important; } /* تصغير النصوص لتوفير مساحة */
-    
-    .container, .card {
-      margin-top: 10px !important; /* تقليل المسافة العلوية لترك مساحة للإعلان */
-      padding: 15px !important;
-    }
+  /* 2. تدمير الأحجام المطاطية التي تسبب تضخم الخط في الايفون والويندوز */
+  /* إجبار المتصفح على استخدام أحجام ثابتة (بيكسل) */
+  h1, h1 * { font-size: 26px !important; line-height: 1.4 !important; }
+  h2, h2 * { font-size: 22px !important; line-height: 1.4 !important; }
+  h3, h3 * { font-size: 18px !important; line-height: 1.4 !important; }
+  p, span, li, a { font-size: 16px !important; line-height: 1.6 !important; }
+  
+  /* 3. فك القيود عن المربع الأزرق (Card) ليتمدد للأسفل براحته */
+  .card, .container, section, div {
+    height: auto !important;
+    min-height: fit-content !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding-bottom: 40px !important; /* مساحة إضافية للزر */
   }
 
-  /* 3. ضمان ظهور زر Start وعدم اختفائه */
-  button, #start-btn {
-    display: block !important;
-    margin: 20px auto !important;
-    padding: 12px 30px !important;
+  /* 4. حماية زر ستارت (Start) ليكون ظاهراً وقابلاً للضغط دائماً */
+  button, .btn, input {
+    font-size: 18px !important; /* توحيد حجم الزر */
+    margin-top: 25px !important;
+    margin-bottom: 60px !important; /* مساحة فارغة تحته لكي ينزل السكرول إليه رغم وجود الإعلان */
     position: relative !important;
-    z-index: 999; /* ليكون فوق أي عنصر آخر */
+    z-index: 9999 !important;
+    display: inline-block !important;
   }
 
-  /* 4. منع الآيفون من تكبير الخط تلقائياً */
+  /* 5. منع الايفون من التكبير التلقائي */
   * {
     -webkit-text-size-adjust: 100% !important;
     box-sizing: border-box !important;
